@@ -1,6 +1,7 @@
 ﻿using AspNetCoreAPI.Models;
 using AspNetCoreAPI.Registration.dto;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;

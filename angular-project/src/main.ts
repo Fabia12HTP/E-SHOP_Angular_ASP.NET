@@ -6,7 +6,8 @@ import { RegistrationComponent } from './app/api-authorization/registration/regi
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { LoginComponent } from './app/api-authorization/login/login.component';
-import { DashboardComponent } from './app/dashboard/dashboard.component';
+import { HomepageComponent } from './app/homepage/homepage.component';
+import { ShoeDetailsComponent } from './app/shoe-details/shoe-details.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { errorHandlerInterceptor } from './app/api-authorization/error-handler.interceptor';
 import { authGuard } from './app/api-authorization/auth.guard';
@@ -37,9 +38,10 @@ bootstrapApplication(AppComponent, {
       provideAnimations(),
       provideHttpClient(withInterceptors([errorHandlerInterceptor, jwtInterceptor])),
       provideRouter([
-        { path: '', component: DashboardComponent, canActivate: [authGuard]},
+        { path: '', component: HomepageComponent, canActivate: [authGuard]},
         { path: 'login', component: LoginComponent},
-        { path: 'register', component: RegistrationComponent}
+        { path: 'register', component: RegistrationComponent },
+        { path: 'Home/:shoesDetailPage', component: ShoeDetailsComponent }
       ])
     ]
 })

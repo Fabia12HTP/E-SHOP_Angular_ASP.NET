@@ -2,9 +2,10 @@
   <span>My web app</span>
   <span class="spacer"></span>
   @if (authService.authenticated()) {
+    <button mat-button [routerLink]="['']">Home</button>
     <button mat-button (click)="logout()">Logout</button>
   } @else {
     <button mat-button [routerLink]="['/login']">Login</button>
-    <button mat-button [routerLink]="['/register']">Registration</button>
+    <button mat-button [routerLink]="['/register']">Registration</button>  
   }
 </mat-toolbar>
