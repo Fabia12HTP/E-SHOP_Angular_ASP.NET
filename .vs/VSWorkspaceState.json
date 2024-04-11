@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AspNetWebAPI",
+    "\\AspNetWebAPI\\Controllers"
   ],
-  "SelectedNode": "\\C:\\Users\\DELL\\Source\\Repos\\E-SHOP_Angular_ASP.NET",
+  "SelectedNode": "\\AspNetWebAPI\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }
