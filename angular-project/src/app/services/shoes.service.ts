@@ -7,7 +7,7 @@ import { Shoes } from '../interfaces/shoes';
 })
 export class ShoesService {
 
-  private homeUrl = this.baseUrl + "home";
+  private homeUrl = this.baseUrl + "/home";
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   getShoeList() {
