@@ -1,8 +1,8 @@
 <mat-toolbar>
-  <span>My web app</span>
+  <span>E-Shop</span>
   <span class="spacer"></span>
   @if (authService.authenticated()) {
-    <button mat-button [routerLink]="['']">Home</button>
+    <button mat-button [routerLink]="['/home']">Home</button>
     <button mat-button (click)="logout()">Logout</button>
   } @else {
     <button mat-button [routerLink]="['/login']">Login</button>

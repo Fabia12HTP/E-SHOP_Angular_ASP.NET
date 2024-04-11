@@ -2,6 +2,7 @@
 using AspNetCoreAPI.DTOs;
 using AspNetCoreAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace AspNetCoreAPI.Services
@@ -23,8 +24,8 @@ namespace AspNetCoreAPI.Services
                 Price = shoe.Price,
                 Rating = shoe.Rating,
                 ShoeSize = shoe.ShoeSize,
-                UrlPicture = shoe.UrlPicture,
-                DeliveringState = shoe.DeliveringState
+                DeliveringState = shoe.DeliveringState,
+                UrlPicture = FormatUrl(shoe.UrlPicture)
             });
         }
 
@@ -37,11 +38,20 @@ namespace AspNetCoreAPI.Services
                 Price = shoe.Price,
                 Rating = shoe.Rating,
                 ShoeSize = shoe.ShoeSize,
-                UrlPicture = shoe.UrlPicture,
-                DeliveringState = shoe.DeliveringState
+                DeliveringState = shoe.DeliveringState,
+                UrlPicture = FormatUrl(shoe.UrlPicture)          
             };
 
             return detailToReturn;
-        }        
+        }
+
+        private static string? FormatUrl(string? url)
+        {
+            if (url != null)
+            {
+                return url.Replace("\\", "/");
+            }
+            return url;
+        }
     }
 }
