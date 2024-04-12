@@ -1,16 +1,23 @@
 <div *ngIf="shoes">
- <h1>Shoes</h1>
   <ul>
     <li *ngFor="let shoe of shoes()">
       <a>
-        <img class="main-image" [src]="shoe.urlPicture" alt="Shoe-Image" />
+        <img class="shoe-image" [src]="shoe.urlPicture" alt="Shoe-Image" />
         <div class="content">
-          <div class="name">
+          <h1 class="shoe-name">
             {{ shoe.name }}
-          </div>
+          </h1>
+          <p class="shoe-description">
+            {{ shoe.description }}
+          </p>
+          <p class="shoe-price">
+            {{ shoe.price }}
+          </p>
+          <p>
+          </p>
         </div>
-        <p> </p>
       </a>
     </li>
   </ul>
+  <!--<button color="primary" [title]="shoes.name + ' details'" [routerLink]="['/home', shoes.id]" >Details</button>-->
 </div>

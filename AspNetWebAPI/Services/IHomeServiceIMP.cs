@@ -23,26 +23,24 @@ namespace AspNetCoreAPI.Services
                 Name = shoe.Name,
                 Price = shoe.Price,
                 Rating = shoe.Rating,
-                ShoeSize = shoe.ShoeSize,
+                Discount = shoe.Discount,
+                Description = shoe.Description,
                 DeliveringState = shoe.DeliveringState,
                 UrlPicture = FormatUrl(shoe.UrlPicture)
             });
         }
 
-        public ShoesDTO GetShoesDetailPage(int page)
+        public IEnumerable<ShoesDetDTO> GetShoesDetailPage(int page)
         {
-            var shoe = _context.DbShoes.Where(x => x.Id == page).Single();
-            var detailToReturn = new ShoesDTO()
-            {
-                Name = shoe.Name,
-                Price = shoe.Price,
-                Rating = shoe.Rating,
-                ShoeSize = shoe.ShoeSize,
-                DeliveringState = shoe.DeliveringState,
-                UrlPicture = FormatUrl(shoe.UrlPicture)          
-            };
+            _context.DbShoes.Where(x => x.Id == page).Single();
 
-            return detailToReturn;
+            return _context.DbShoeDetails.Select(shoeD => new ShoesDetDTO
+            {
+                ShoeSize = shoeD.ShoeSize,
+                ShoeBrand = shoeD.ShoeBrand,
+                ShoeColor = shoeD.ShoeColor,
+                ShoeMaterial = shoeD.ShoeMaterial,
+            });           
         }
 
         private static string? FormatUrl(string? url)
@@ -51,6 +49,7 @@ namespace AspNetCoreAPI.Services
             {
                 return url.Replace("\\", "/");
             }
+
             return url;
         }
     }
