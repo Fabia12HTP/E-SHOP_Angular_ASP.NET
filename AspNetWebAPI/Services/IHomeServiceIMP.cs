@@ -2,6 +2,7 @@
 using AspNetCoreAPI.DTOs;
 using AspNetCoreAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace AspNetCoreAPI.Services
@@ -22,26 +23,34 @@ namespace AspNetCoreAPI.Services
                 Name = shoe.Name,
                 Price = shoe.Price,
                 Rating = shoe.Rating,
-                ShoeSize = shoe.ShoeSize,
-                UrlPicture = shoe.UrlPicture,
-                DeliveringState = shoe.DeliveringState
+                Discount = shoe.Discount,
+                Description = shoe.Description,
+                DeliveringState = shoe.DeliveringState,
+                UrlPicture = FormatUrl(shoe.UrlPicture)
             });
         }
 
-        public ShoesDTO GetShoesDetailPage(int page)
+        public IEnumerable<ShoesDetDTO> GetShoesDetailPage(int page)
         {
-            var shoe = _context.DbShoes.Where(x => x.Id == page).Single();
-            var detailToReturn = new ShoesDTO()
-            {
-                Name = shoe.Name,
-                Price = shoe.Price,
-                Rating = shoe.Rating,
-                ShoeSize = shoe.ShoeSize,
-                UrlPicture = shoe.UrlPicture,
-                DeliveringState = shoe.DeliveringState
-            };
+            _context.DbShoes.Where(x => x.Id == page).Single();
 
-            return detailToReturn;
-        }        
+            return _context.DbShoeDetails.Select(shoeD => new ShoesDetDTO
+            {
+                ShoeSize = shoeD.ShoeSize,
+                ShoeBrand = shoeD.ShoeBrand,
+                ShoeColor = shoeD.ShoeColor,
+                ShoeMaterial = shoeD.ShoeMaterial,
+            });           
+        }
+
+        private static string? FormatUrl(string? url)
+        {
+            if (url != null)
+            {
+                return url.Replace("\\", "/");
+            }
+
+            return url;
+        }
     }
 }

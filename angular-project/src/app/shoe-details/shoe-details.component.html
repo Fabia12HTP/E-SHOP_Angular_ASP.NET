@@ -1,1 +1,20 @@
-<p>shoe-details works!</p>
+<div *ngIf="shoesD">
+  <ul>
+    <li *ngFor="let shoe of shoesD()">
+      <a>
+        <img class="shoe-image" [src]="shoe.urlPicture" alt="Shoe-Image" />
+        <div class="content">
+          <h1 class="shoe-name">
+            {{ shoe.name }}
+          </h1>
+          <p class="shoe-description">
+            {{ shoe.description }}
+          </p>
+          <p class="shoe-price">
+            {{ shoe.price }}
+          </p>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>

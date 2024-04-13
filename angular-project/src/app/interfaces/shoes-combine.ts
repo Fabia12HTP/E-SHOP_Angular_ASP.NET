@@ -1,5 +1,7 @@
-export interface Shoes {
-  id: number;
+import { Shoes } from './shoes'; 
+import { ShoeDetails } from './shoe-details'; 
+
+export interface ShoesCombine extends Shoes, ShoeDetails {
   name: string;
   urlPicture: string;
   description: string;
