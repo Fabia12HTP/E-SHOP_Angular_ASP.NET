@@ -18,10 +18,10 @@ namespace AspNetCoreAPI.Controllers
         [HttpGet]
         public IEnumerable<ShoesDTO> Get() => _homeService.GetShoes();
 
-        [HttpGet("{shoesDetailPage:int}")]
-        public ActionResult<ShoesDetDTO?> Get(int page) => GetResponse(_homeService.GetShoesDetailPage(page));
+        [HttpGet("{page:int}")]
+        public ActionResult<ShoesDTO?> Get(int page) => GetResponse(_homeService.GetShoesDetailPage(page));
 
-        private ActionResult<ShoesDetDTO?> GetResponse(IEnumerable<ShoesDetDTO?> shoeDetail) =>
+        private ActionResult<ShoesDTO?> GetResponse(IEnumerable<ShoesDTO?> shoeDetail) =>
             shoeDetail == null ? NotFound() : Ok(shoeDetail);
     }
 }

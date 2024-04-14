@@ -1,7 +1,7 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { CommonModule } from '@angular/common';
-import { ShoesCombine } from '../interfaces/shoes-combine';
+import { Shoes } from '../interfaces/shoes';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -14,11 +14,11 @@ import { Subject, takeUntil } from 'rxjs';
 export class ShoeDetailsComponent {
   shoeService = inject(ShoesService);
 
-  @Input('detailPageId') detailPageIdFromRoute: number;
+  @Input('page') detailPageIdFromRoute: number;
 
   private destroy$ = new Subject<void>();
 
-  shoesD = signal<ShoesCombine[]>([]);
+  shoesD = signal<Shoes[]>([]);
 
   ngOnInit(): void {
     this.shoeService.getShoeDetailsList(this.detailPageIdFromRoute)

@@ -41,7 +41,7 @@ bootstrapApplication(AppComponent, {
         { path: 'home', component: HomepageComponent, canActivate: [authGuard]},
         { path: 'login', component: LoginComponent},
         { path: 'register', component: RegistrationComponent },
-        { path: 'home/:detailPageId', component: ShoeDetailsComponent }
+        { path: 'home/:page', component: ShoeDetailsComponent }
       ])
     ]
 })
