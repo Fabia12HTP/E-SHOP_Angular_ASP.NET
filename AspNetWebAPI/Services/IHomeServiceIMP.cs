@@ -30,11 +30,11 @@ namespace AspNetCoreAPI.Services
             });
         }
 
-        public IEnumerable<ShoesDetDTO> GetShoesDetailPage(int page)
+        public IEnumerable<ShoesDTO> GetShoesDetailPage(int page)
         {
             _context.DbShoes.Where(x => x.Id == page).Single();
 
-            return _context.DbShoeDetails.Select(shoeD => new ShoesDetDTO
+            return _context.DbShoeDetails.Select(shoeD => new ShoesDTO
             {
                 ShoeSize = shoeD.ShoeSize,
                 ShoeBrand = shoeD.ShoeBrand,

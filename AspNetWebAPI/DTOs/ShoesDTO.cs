@@ -11,5 +11,8 @@
         public float? Rating { get; set; }
         public float? ShoeSize { get; set; }
         public bool? DeliveringState { get; set; }
+        public string? ShoeColor { get; set; } // 
+        public string? ShoeBrand { get; set; } //
+        public string? ShoeMaterial { get; set; } // 
     }
 }
