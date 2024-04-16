@@ -1,0 +1,47 @@
+.shoes-frame {
+  max-width: 400px;
+  max-height: 520px;
+}
+
+.shoe-image {
+  background-size: cover;
+  position: relative;
+}
+
+p {
+  color: white;
+  display: inline-block;
+  font-weight: 570;
+  font-family: Tahoma;
+}
+
+.shoe-name {
+  color: #001219;
+}
+
+.shoe-description {
+  color: #001219;
+}
+
+.shoe-price {
+  font-weight: 900;
+  font-family: monospace;
+  color: #AE2012;
+}
+
+.shoe-discount {
+  font-weight: 900;
+  padding: 1px 1px;
+  font-family: monospace;
+  background-color: #AE2012;
+  position: absolute; /* umiestnime na presné miesto */
+  bottom: 0; /* umiestnime na dolnej strane */
+  left: 0; /* umiestnime na ľavej strane */
+}
+
+.shoe-deliveringstate {
+  font-weight: 900;
+
+  background-color: #94D2BD;
+}
+

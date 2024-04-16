@@ -13,7 +13,7 @@ namespace AspNetCoreAPI.Models
         public string? ShoeColor { get; set; } //ShoeDetails
         public string? ShoeBrand { get; set; } //ShoeDetails
         public string? ShoeMaterial { get; set; } //ShoeDetails
-        public int? Price {  get; set; }
+        public float? Price {  get; set; }
         public float? Discount { get; set; } 
         public float? Rating { get; set; }
         public float? ShoeSize { get; set; } //ShoeDetails
