@@ -1,26 +1,16 @@
-<!--<button color="primary" [title]="shoes.name + ' details'" [routerLink]="['/home', shoes.id]" >Details</button>-->
+<div *ngIf="shoes">
+  <mat-card class="shoes-frame" *ngFor="let shoe of shoes()">
+    <div class="shoe-image-content">
+      <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
+      <p class="shoe-discount">{{ shoe.discount }}%</p>
+      <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'NA SKLADE' : 'NIE JE K DISPOZÍCIÍ' }}</p>
+    </div>
 
-
-  <div *ngIf="shoes">
-    <mat-card class="shoes-frame" *ngFor="let shoe of shoes()">
-      <mat-card-header>
-        <div mat-card-avatar class="shoe-image"></div>
-      </mat-card-header>
-      <img mat-card-image [src]="shoe.urlPicture" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-        <p calss="shoe-name">{{ shoe.name }}</p>
-        <p class="shoe-description">
-          {{ shoe.description }}
-        </p>
-        <p class="shoe-price">
-          {{ shoe.price }}€
-        </p>
-        <p class="shoe-discount">
-          {{ shoe.discount }}%
-        </p>
-        <p class="shoe-deliveringstate">
-          {{ shoe.deliveringState ? 'NA SKLADE' : 'NIE JE K DISPOZÍCIÍ' }}
-        </p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+    <mat-card-content>
+      <div class="shoe-details">
+        <p class="shoe-name">{{ shoe.name }}</p>
+        <p class="shoe-price">{{ shoe.price }}€</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
