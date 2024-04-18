@@ -10,5 +10,6 @@ export interface Shoes {
   rating: number;
   discount: number;
   shoeSize: number;
+  priceBeforeDiscount: number;
   deliveringState: boolean;
 }

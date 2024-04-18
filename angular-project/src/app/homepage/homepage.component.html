@@ -3,7 +3,7 @@
     <div class="shoe-image-content">
       <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
       <p class="shoe-discount">{{ shoe.discount }}%</p>
-      <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'NA SKLADE' : 'NIE JE K DISPOZÍCIÍ' }}</p>
+      <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
     </div>
 
     <mat-card-content>
@@ -12,5 +12,8 @@
         <p class="shoe-price">{{ shoe.price }}€</p>
       </div>
     </mat-card-content>
+    <p>{{ shoe.priceBeforeDiscount }}</p>
   </mat-card>
 </div>
+
+

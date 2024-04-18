@@ -4,6 +4,7 @@ using AspNetCoreAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 
 namespace AspNetCoreAPI.Services
@@ -25,10 +26,11 @@ namespace AspNetCoreAPI.Services
                 Price = shoe.Price,
                 Rating = shoe.Rating,
                 Discount = shoe.Discount,
-                Description = shoe.Description,
+                Description = shoe.Description,            
                 DeliveringState = shoe.DeliveringState,
-                UrlPicture = FormatUrl(shoe.UrlPicture)
-            });
+                UrlPicture = FormatUrl(shoe.UrlPicture),
+                PriceBeforeDiscount = PriceBefore(shoe.Price, shoe.Discount, shoe.PriceBeforeDiscount),
+            }); 
         }
 
         public IEnumerable<ShoesDTO> GetShoesDetailPage(int page)
@@ -47,7 +49,8 @@ namespace AspNetCoreAPI.Services
                 Description = shoesD.Description,
                 ShoeMaterial = shoesD.ShoeMaterial,
                 DeliveringState = shoesD.DeliveringState,
-                UrlPicture = FormatUrl(shoesD.UrlPicture)                                           
+                UrlPicture = FormatUrl(shoesD.UrlPicture),
+                PriceBeforeDiscount = PriceBefore(shoesD.Price, shoesD.Discount, shoesD.PriceBeforeDiscount),
             };
 
             return (IEnumerable<ShoesDTO>)detailToReturn;
@@ -61,6 +64,28 @@ namespace AspNetCoreAPI.Services
             }
 
             return url;
+        }
+
+        private static float? PriceBefore(float? price, float? discount, float? priceBefore) 
+        {
+            float? OnePercent;
+            float? ActualPriceOfPercentage;
+                    
+            if(price != null || discount != null)
+            {
+                OnePercent = (price / 100);
+
+                ActualPriceOfPercentage = OnePercent * discount;
+
+                priceBefore = price + ActualPriceOfPercentage;
+
+                return priceBefore;
+            }
+
+            else
+            {
+                return null;
+            }
         }
     }
 }

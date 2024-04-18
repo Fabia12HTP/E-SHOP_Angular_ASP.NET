@@ -10,6 +10,7 @@
         public string? ShoeBrand { get; set; } //ShoeDetails
         public string? ShoeMaterial { get; set; } //ShoeDetails
         public float? Price { get; set; }
+        public float? PriceBeforeDiscount { get; set; }
         public float? Discount { get; set; } 
         public float? Rating { get; set; }
         public float? ShoeSize { get; set; } //ShoeDetails
