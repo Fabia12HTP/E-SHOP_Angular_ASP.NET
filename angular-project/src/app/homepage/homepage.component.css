@@ -1,14 +1,14 @@
 .shoes-frame {
   background-color: white;
   border-radius: 15px;
-  width: 425px;
-  height: 425px;
+  width: 375px;
+  height: 375px;
   margin: 17px;
 }
 
 .shoe-image-content {
-  width: 425px;
-  height: 375px;
+  width: 375px;
+  height: 300px;
   position: relative;
   overflow: hidden;
 }
@@ -50,18 +50,54 @@
 
 .shoe-details {
   text-align: left;
-  margin-top: 15px;
+  margin-top: 7px;
+  position: relative;
 }
 
 .shoe-name {
+  font-size: 15px;
   color: #011627;
+  font-family: Cambria;
+  font-weight: 800;
+  margin-bottom: 2px;
+  text-align: center;
+}
+
+.shoe-description {
+  color: #22333B;
   font-family: Georgia;
-  margin-bottom: 5px;
+  font-style: italic;
+  margin-bottom: 7px;
+  text-align: left;
 }
 
 .shoe-price {
+  display: inline-block;
+  margin-right: 20px;
+  width: max-content;
   margin-bottom: 0;
   font-weight: 900;
   font-family: Consolas;
   color: #E71D36;
+}
+
+.shoe-price-before {
+  display: inline-block;
+  position: relative;
+  width: max-content;
+  margin-bottom: 0;
+  font-weight: 1000;
+  font-family: Consolas;
+  color: #011627;
+}
+
+.shoe-price-before:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1.5px;
+  background-color: #011627;
+  left: 0;
+  top: 50%;
+  transform: rotate(-6deg);
 }

@@ -12,4 +12,5 @@ export interface Shoes {
   shoeSize: number;
   priceBeforeDiscount: number;
   deliveringState: boolean;
+  favourite: boolean;
 }

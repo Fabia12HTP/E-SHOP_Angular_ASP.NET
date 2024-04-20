@@ -26,6 +26,7 @@ namespace AspNetCoreAPI.Services
                 Price = shoe.Price,
                 Rating = shoe.Rating,
                 Discount = shoe.Discount,
+                Favourite = shoe.Favourite,
                 Description = shoe.Description,            
                 DeliveringState = shoe.DeliveringState,
                 UrlPicture = FormatUrl(shoe.UrlPicture),
@@ -77,7 +78,7 @@ namespace AspNetCoreAPI.Services
 
                 ActualPriceOfPercentage = OnePercent * discount;
 
-                priceBefore = price + ActualPriceOfPercentage;
+                priceBefore = (float?)Math.Round((double)(price + ActualPriceOfPercentage), 2);
 
                 return priceBefore;
             }

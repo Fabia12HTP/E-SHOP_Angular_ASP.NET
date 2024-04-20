@@ -4,15 +4,17 @@
       <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
       <p class="shoe-discount">{{ shoe.discount }}%</p>
       <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
+      <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
     </div>
 
     <mat-card-content>
       <div class="shoe-details">
         <p class="shoe-name">{{ shoe.name }}</p>
+        <p class="shoe-description">{{ shoe.description }}</p>
         <p class="shoe-price">{{ shoe.price }}€</p>
+        <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
       </div>
-    </mat-card-content>
-    <p>{{ shoe.priceBeforeDiscount }}</p>
+    </mat-card-content>  
   </mat-card>
 </div>
 
