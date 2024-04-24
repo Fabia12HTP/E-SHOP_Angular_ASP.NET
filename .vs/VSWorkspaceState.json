@@ -1,16 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\angular-project",
-    "\\angular-project\\src",
-    "\\angular-project\\src\\app",
-    "\\angular-project\\src\\app\\api-authorization",
-    "\\angular-project\\src\\app\\api-authorization\\login",
-    "\\AspNetWebAPI",
-    "\\AspNetWebAPI\\Migrations",
-    "\\AspNetWebAPI\\Models",
-    "\\AspNetWebAPI\\Services"
+    "\\AspNetWebAPI"
   ],
-  "SelectedNode": "\\angular-project",
+  "SelectedNode": "\\AspNetWebAPI\\appsettings.json",
   "PreviewInSolutionExplorer": false
 }
