@@ -1,9 +1,9 @@
-<div *ngIf="shoesD">
+<div *ngIf="shoesD()">
   <a>
     <img class="shoe-image" [src]="shoesD().urlPicture" alt="Shoe-Image" />
     <div class="content">
       <h1 class="shoe-name">
-        {{ shoesD().name }}
+        {{ shoesD().name.toString }}
       </h1>
       <p class="shoe-description">
         {{ shoesD().description }}

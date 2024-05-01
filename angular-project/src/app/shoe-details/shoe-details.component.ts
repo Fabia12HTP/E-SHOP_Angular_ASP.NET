@@ -18,7 +18,9 @@ export class ShoeDetailsComponent {
 
   private destroy$ = new Subject<void>();
 
-  shoesD = signal<Shoes[]>([]);
+  @Input('shoesID') guildIdFromRoute: number;
+
+  shoesD = signal<Shoes>(undefined);
 
   ngOnInit() {
     const page = this.activatedRoute.snapshot.data['page'];
