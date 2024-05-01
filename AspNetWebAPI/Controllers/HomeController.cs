@@ -1,4 +1,5 @@
-﻿using AspNetCoreAPI.Data;
+﻿using AspNetCoreAPI.CustomErrors;
+using AspNetCoreAPI.Data;
 using AspNetCoreAPI.DTOs;
 using AspNetCoreAPI.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace AspNetCoreAPI.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("[controller]")]
     public class HomeController : BaseController
     {
@@ -18,10 +18,10 @@ namespace AspNetCoreAPI.Controllers
         [HttpGet]
         public IEnumerable<ShoesDTO> Get() => _homeService.GetShoes();
 
-        [HttpGet("{page:int}")]
-        public ActionResult<ShoesDTO?> Get(int page) => GetResponse(_homeService.GetShoesDetailPage(page));
+        [HttpGet("detail")]
+        public ActionResult<ShoesDTO?> Get([FromQuery] int page) => GetResponse(_homeService.GetShoesDetailPage(page));
 
         private ActionResult<ShoesDTO?> GetResponse(IEnumerable<ShoesDTO?> shoeDetail) =>
-            shoeDetail == null ? NotFound() : Ok(shoeDetail);
+            shoeDetail == null ? new CustomError($"Topánky s dátami {shoeDetail} neboli nájdené.") : Ok(shoeDetail);
     }
 }

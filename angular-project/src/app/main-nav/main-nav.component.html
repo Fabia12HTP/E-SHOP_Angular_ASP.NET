@@ -1,14 +1,14 @@
 <mat-toolbar>
   <span>E-Shop</span>
   <span class="spacer"></span>
-  @if (authService.authenticated()) {
+
   <mat-icon class="home-icon" [routerLink]="['/home']">home</mat-icon>
   <mat-icon>new_releases</mat-icon>
   <mat-icon>notifications_active</mat-icon>
   <mat-icon class="shopping-cart" [routerLink]="['/home/cart']">shopping_cart</mat-icon>
   <mat-icon class="user-icon" [routerLink]="['/home/gej']">supervised_user_circle</mat-icon>
 
-
+  @if (authService.authenticated()) {
   <button mat-button (click)="logout()">Logout</button>
   }
 

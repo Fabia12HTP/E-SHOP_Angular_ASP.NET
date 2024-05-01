@@ -1,8 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AspNetWebAPI"
+    "\\angular-project",
+    "\\angular-project\\src",
+    "\\angular-project\\src\\app",
+    "\\angular-project\\src\\app\\services",
+    "\\angular-project\\src\\app\\shoe-details",
+    "\\AspNetWebAPI",
+    "\\AspNetWebAPI\\Controllers",
+    "\\AspNetWebAPI\\Models",
+    "\\AspNetWebAPI\\Services"
   ],
-  "SelectedNode": "\\AspNetWebAPI\\appsettings.json",
+  "SelectedNode": "\\AspNetWebAPI\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }

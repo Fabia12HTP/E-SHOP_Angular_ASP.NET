@@ -1,5 +1,5 @@
 <div *ngIf="shoes">
-  <mat-card class="shoes-frame" *ngFor="let shoe of shoes()">
+  <mat-card class="shoes-frame" *ngFor="let shoe of shoes()" (click)="goToShoeDetails(shoe.id)">
     <div class="shoe-image-content">
       <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
       <p class="shoe-discount">{{ shoe.discount }}%</p>
@@ -14,7 +14,7 @@
         <p class="shoe-price">{{ shoe.price }}€</p>
         <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
       </div>
-    </mat-card-content>  
+    </mat-card-content>
   </mat-card>
 </div>
 

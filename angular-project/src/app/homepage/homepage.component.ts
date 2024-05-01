@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Shoes } from '../interfaces/shoes';
 import { Subject, takeUntil } from 'rxjs';
@@ -16,6 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class HomepageComponent {
   shoeService = inject(ShoesService);
+  router = inject(Router);
 
   private destroy$ = new Subject<void>();
 
@@ -30,5 +31,9 @@ export class HomepageComponent {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  goToShoeDetails(page: number) {
+    this.router.navigate(['/detail'], { queryParams: { page } });
   }
 }

@@ -42,7 +42,7 @@ namespace AspNetCoreAPI.Services
                 Id = shoesD.Id,
                 Name = shoesD.Name,
                 Price = shoesD.Price,
-                Rating = shoesD.Rating,            
+                Rating = shoesD.Rating,
                 Discount = shoesD.Discount,
                 ShoeSize = shoesD.ShoeSize,
                 ShoeColor = shoesD.ShoeColor,

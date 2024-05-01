@@ -37,11 +37,12 @@ bootstrapApplication(AppComponent, {
       })),
       provideAnimations(),
       provideHttpClient(withInterceptors([errorHandlerInterceptor, jwtInterceptor])),
-      provideRouter([
-        { path: 'home', component: HomepageComponent, canActivate: [authGuard]},
+    provideRouter([
+        { path: '', redirectTo: '/home', pathMatch: 'full' },
+        { path: 'home', component: HomepageComponent},
         { path: 'login', component: LoginComponent},
         { path: 'register', component: RegistrationComponent },
-        { path: 'home/:page', component: ShoeDetailsComponent }
+        { path: 'detail', component: ShoeDetailsComponent, data: { page: ':page' } }
       ])
     ]
 })

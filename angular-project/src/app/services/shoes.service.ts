@@ -15,7 +15,8 @@ export class ShoesService {
     return this.http.get<Shoes[]>(this.homeUrl);
   }
   
-  getShoeDetailsList(detailPageId: number): Observable<Shoes[]> {
-    return this.http.get<Shoes[]>(this.homeUrl + detailPageId);
+  getShoeDetailsList(page: number): Observable<Shoes[]> {
+    const url = `${this.homeUrl}?page=${page}`;
+    return this.http.get<Shoes[]>(url);
   }
 }
