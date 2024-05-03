@@ -5,12 +5,12 @@
     "\\angular-project\\src",
     "\\angular-project\\src\\app",
     "\\angular-project\\src\\app\\services",
-    "\\angular-project\\src\\app\\shoe-details",
     "\\AspNetWebAPI",
     "\\AspNetWebAPI\\Controllers",
+    "\\AspNetWebAPI\\DTOs",
     "\\AspNetWebAPI\\Models",
     "\\AspNetWebAPI\\Services"
   ],
-  "SelectedNode": "\\AspNetWebAPI\\Controllers\\HomeController.cs",
+  "SelectedNode": "\\angular-project\\src\\app\\app.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -34,9 +34,9 @@ namespace AspNetCoreAPI.Services
             }); 
         }
 
-        public IEnumerable<ShoesDTO> GetShoesDetailPage(int page)
+        public ShoesDTO GetShoesDetailPage(int page)
         {
-            var shoesD = _context.DbShoes.Where(x => x.Id == page).Single();
+            var shoesD = _context.DbShoes.Where(x => x.Id == page).FirstOrDefault();
             var detailToReturn = new ShoesDTO
             {
                 Id = shoesD.Id,
@@ -53,8 +53,9 @@ namespace AspNetCoreAPI.Services
                 UrlPicture = FormatUrl(shoesD.UrlPicture),
                 PriceBeforeDiscount = PriceBefore(shoesD.Price, shoesD.Discount, shoesD.PriceBeforeDiscount),
             };
+            
 
-            return (IEnumerable<ShoesDTO>)detailToReturn;
+            return detailToReturn;
         }
 
         private static string? FormatUrl(string? url)

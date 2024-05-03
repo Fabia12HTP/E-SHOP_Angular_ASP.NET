@@ -18,18 +18,19 @@ export class ShoeDetailsComponent {
 
   private destroy$ = new Subject<void>();
 
-  @Input('shoesID') guildIdFromRoute: number;
+  @Input('page') pageNum: number;
 
   shoesD = signal<Shoes>(undefined);
 
   ngOnInit() {
-    const page = this.activatedRoute.snapshot.data['page'];
-    if (page) {
-      this.loadShoeDetails(page);
+
+    if (this.pageNum) {
+      this.loadShoeDetails(this.pageNum);
+      console.error(`Parameter "page" is ${this.pageNum}`);
     }
 
     else {
-      console.error('Parameter "page" is undefined');
+      console.error(`Parameter "page" is ${this.pageNum}`);
     }
   }
 

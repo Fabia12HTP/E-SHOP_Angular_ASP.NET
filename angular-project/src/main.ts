@@ -42,7 +42,7 @@ bootstrapApplication(AppComponent, {
         { path: 'home', component: HomepageComponent},
         { path: 'login', component: LoginComponent},
         { path: 'register', component: RegistrationComponent },
-        { path: 'detail', component: ShoeDetailsComponent, data: { page: ':page' } }
+        { path: 'home/detail', component: ShoeDetailsComponent, data: { page: ':page' } }
       ])
     ]
 })

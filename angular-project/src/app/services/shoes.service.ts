@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class ShoesService {
 
   private homeUrl = this.baseUrl + "/home";
+  private detailPageUrl = this.homeUrl + "/detail";
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   getShoeList() {
@@ -16,7 +17,7 @@ export class ShoesService {
   }
   
   getShoeDetailsList(page: number): Observable<Shoes> {
-    const url = `${this.homeUrl}?page=${page}`;
+    const url = `${this.detailPageUrl}?page=${page}`;
     return this.http.get<Shoes>(url);
   }
 }

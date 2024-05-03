@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { MatButtonModule } from '@angular/material/button';
+import { ShoeDetailsComponent } from '../shoe-details/shoe-details.component';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, ShoeDetailsComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
@@ -34,6 +35,6 @@ export class HomepageComponent {
   }
 
   goToShoeDetails(page: number) {
-    this.router.navigate(['/detail'], { queryParams: { page } });
+    this.router.navigate(['home/detail'], { queryParams: { page } });
   }
 }

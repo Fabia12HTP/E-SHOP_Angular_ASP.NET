@@ -21,7 +21,7 @@ namespace AspNetCoreAPI.Controllers
         [HttpGet("detail")]
         public ActionResult<ShoesDTO?> Get([FromQuery] int page) => GetResponse(_homeService.GetShoesDetailPage(page));
 
-        private ActionResult<ShoesDTO?> GetResponse(IEnumerable<ShoesDTO?> shoeDetail) =>
+        private ActionResult<ShoesDTO?> GetResponse(ShoesDTO shoeDetail) =>
             shoeDetail == null ? new CustomError($"Topánky s dátami {shoeDetail} neboli nájdené.") : Ok(shoeDetail);
     }
 }
