@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
     AsyncPipe
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
   authService = inject(AuthenticationService);

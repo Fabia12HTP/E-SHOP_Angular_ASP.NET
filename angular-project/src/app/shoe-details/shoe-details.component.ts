@@ -18,7 +18,7 @@ export class ShoeDetailsComponent {
 
   private destroy$ = new Subject<void>();
 
-  @Input('page') pageNum: number;
+  @Input() pageNum: number;
 
   shoesD = signal<Shoes>(undefined);
 
