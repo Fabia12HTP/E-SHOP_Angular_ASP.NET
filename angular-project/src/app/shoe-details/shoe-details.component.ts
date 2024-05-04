@@ -22,16 +22,15 @@ export class ShoeDetailsComponent {
 
   shoesD = signal<Shoes>(undefined);
 
-  ngOnInit() {
-
+  ngDoCheck() {
     if (this.pageNum) {
       this.loadShoeDetails(this.pageNum);
-      console.error(`Parameter "page" is ${this.pageNum}`);
+      console.log(`Parameter "page" is ${this.pageNum}`);
     }
 
     else {
       console.error(`Parameter "page" is ${this.pageNum}`);
-    }
+    }   
   }
 
   ngOnDestroy(): void {

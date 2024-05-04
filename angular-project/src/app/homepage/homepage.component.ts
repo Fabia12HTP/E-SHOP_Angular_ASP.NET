@@ -21,9 +21,12 @@ export class HomepageComponent {
   shoeService = inject(ShoesService);
   router = inject(Router);
 
+  currentShoeId: number;
+
   private destroy$ = new Subject<void>();
 
   shoes = signal<Shoes[]>([]);
+    
 
   ngOnInit(): void {
     this.shoeService.getShoeList()
@@ -37,6 +40,8 @@ export class HomepageComponent {
   }
 
   goToShoeDetails(page: number) {
+    this.currentShoeId = page;
+    console.log(`PageNum is ${this.currentShoeId}`)
     this.router.navigate(['home/detail'], { queryParams: { page } });
   }
 }

@@ -4,13 +4,13 @@
     "\\angular-project",
     "\\angular-project\\src",
     "\\angular-project\\src\\app",
+    "\\angular-project\\src\\app\\api-authorization",
+    "\\angular-project\\src\\app\\api-authorization\\registration",
+    "\\angular-project\\src\\app\\homepage",
+    "\\angular-project\\src\\app\\main-nav",
     "\\angular-project\\src\\app\\services",
-    "\\AspNetWebAPI",
-    "\\AspNetWebAPI\\Controllers",
-    "\\AspNetWebAPI\\DTOs",
-    "\\AspNetWebAPI\\Models",
-    "\\AspNetWebAPI\\Services"
+    "\\angular-project\\src\\app\\shoe-details"
   ],
-  "SelectedNode": "\\angular-project\\src\\app\\app.component.ts",
+  "SelectedNode": "\\angular-project\\src\\app\\homepage\\homepage.component.html",
   "PreviewInSolutionExplorer": false
 }

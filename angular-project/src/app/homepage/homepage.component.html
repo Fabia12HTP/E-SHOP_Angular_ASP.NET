@@ -1,6 +1,7 @@
 <div *ngIf="shoes">
-  <mat-card class="shoes-frame" *ngFor="let shoe of shoes()" (click)="goToShoeDetails(shoe.id)" >
-    <ShoeDetailsComponent [pageNum]="shoe.id"/>
+  <mat-card class="shoes-frame" *ngFor="let shoe of shoes()" (click)="goToShoeDetails(shoe.id)">
+
+    <app-shoe-details [pageNum]="currentShoeId"></app-shoe-details>
 
     <div class="shoe-image-content">
       <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
@@ -19,5 +20,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
-
