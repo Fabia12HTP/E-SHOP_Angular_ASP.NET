@@ -18,19 +18,22 @@ export class ShoeDetailsComponent {
 
   private destroy$ = new Subject<void>();
 
-  @Input() pageNum: number;
+  
 
   shoesD = signal<Shoes>(undefined);
 
-  ngDoCheck() {
-    if (this.pageNum) {
-      this.loadShoeDetails(this.pageNum);
-      console.log(`Parameter "page" is ${this.pageNum}`);
-    }
+  ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const page = params['page'];
 
-    else {
-      console.error(`Parameter "page" is ${this.pageNum}`);
-    }   
+      if (page) {
+        this.loadShoeDetails(page);
+      }
+
+      else {
+        console.error(`Parameter 'page' is ${page}`);
+      }
+    });
   }
 
   ngOnDestroy(): void {

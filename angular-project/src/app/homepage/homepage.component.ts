@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Shoes } from '../interfaces/shoes';
 import { Subject, takeUntil } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -18,10 +19,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class HomepageComponent {
+  activatedRoute = inject(ActivatedRoute);
   shoeService = inject(ShoesService);
   router = inject(Router);
-
-  currentShoeId: number;
 
   private destroy$ = new Subject<void>();
 
@@ -40,8 +40,9 @@ export class HomepageComponent {
   }
 
   goToShoeDetails(page: number) {
-    this.currentShoeId = page;
-    console.log(`PageNum is ${this.currentShoeId}`)
-    this.router.navigate(['home/detail'], { queryParams: { page } });
+    let currentPage = this.activatedRoute.snapshot.queryParams['page'];
+    currentPage = page;
+
+    this.router.navigate(['home/detail'], { queryParams: { page: currentPage } });
   }
 }
