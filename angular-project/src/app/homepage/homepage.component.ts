@@ -9,11 +9,13 @@ import { Shoes } from '../interfaces/shoes';
 import { Subject, takeUntil } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SerachPipePipe } from './serach-pipe.pipe';
+import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, ShoeDetailsComponent],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, ShoeDetailsComponent, SerachPipePipe],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
   schemas: [NO_ERRORS_SCHEMA]
@@ -24,6 +26,8 @@ export class HomepageComponent {
   router = inject(Router);
 
   private destroy$ = new Subject<void>();
+
+  searchText = '';
 
   shoes = signal<Shoes[]>([]);
     
