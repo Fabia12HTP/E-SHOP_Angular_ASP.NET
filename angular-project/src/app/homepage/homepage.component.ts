@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { MatButtonModule } from '@angular/material/button';
-import { ShoeDetailsComponent } from '../shoe-details/shoe-details.component';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,12 +9,11 @@ import { Subject, takeUntil } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SerachPipePipe } from './serach-pipe.pipe';
-import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, ShoeDetailsComponent, SerachPipePipe],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipePipe],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
   schemas: [NO_ERRORS_SCHEMA]
@@ -31,7 +29,6 @@ export class HomepageComponent {
 
   shoes = signal<Shoes[]>([]);
     
-
   ngOnInit(): void {
     this.shoeService.getShoeList()
       .pipe(takeUntil(this.destroy$))

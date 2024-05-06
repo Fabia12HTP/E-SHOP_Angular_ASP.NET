@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SerachPipePipe } from 'src/app/homepage/serach-pipe.pipe';
 import { HomepageComponent } from './homepage.component';
 
-
-
 @NgModule({
   declarations: [    
     SerachPipePipe,
@@ -12,7 +10,6 @@ import { HomepageComponent } from './homepage.component';
     HomepageComponent],
   imports: [
     CommonModule,
-
   ]
 })
 export class HomepageModulModule { }

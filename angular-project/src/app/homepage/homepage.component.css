@@ -1,3 +1,32 @@
+.homepage {
+  display: flex;
+  min-height: 100vh;
+}
+
+.search-input {
+  position: absolute;
+  top: 20px; /* Adjust the distance from the top as needed */
+  right: 20px; /* Adjust the distance from the right as needed */
+  z-index: 999; /* Ensure the input stays on top of other elements */
+}
+
+.filter-container {
+  float: left;
+  width: 200px;
+  border: 1px solid #ddd;
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  position: sticky;
+  top: 0;
+}
+
+.shoes-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
 .shoes-frame {
   background-color: white;
   border-radius: 15px;
@@ -13,12 +42,12 @@
   overflow: hidden;
 }
 
-.shoe-image-content img {
-  border-radius: 15px 15px 0px 0px;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .shoe-image-content img {
+    border-radius: 15px 15px 0px 0px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
 .shoe-discount {
   width: 35px;
@@ -91,13 +120,13 @@
   color: #011627;
 }
 
-.shoe-price-before:after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 1.5px;
-  background-color: #011627;
-  left: 0;
-  top: 50%;
-  transform: rotate(-6deg);
-}
+  .shoe-price-before:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1.5px;
+    background-color: #011627;
+    left: 0;
+    top: 50%;
+    transform: rotate(-6deg);
+  }

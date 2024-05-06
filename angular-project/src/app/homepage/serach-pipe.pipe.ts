@@ -7,8 +7,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SerachPipePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    if (!value) return null;
-    if (!args) return value;
+    if (!value) return null || console.error(value);
+    if (!args) return value || console.error(args);
 
     args = args.toLowerCase();
 

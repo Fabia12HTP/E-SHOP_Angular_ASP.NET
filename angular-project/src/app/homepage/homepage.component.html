@@ -1,21 +1,33 @@
-<input class="form-control" type="text" placeholder="Search" [(ngModule)]="searchText" />
+<div class="homepage" *ngIf="shoes">
 
-<div *ngIf="shoes">
-  <mat-card class="shoes-frame" *ngFor="let shoe of shoes() | serachPipe: searchText" (click)="goToShoeDetails(shoe.id)">
-    <div class="shoe-image-content">
-      <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
-      <p class="shoe-discount">{{ shoe.discount }}%</p>
-      <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
-      <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
-    </div>
+  <input class="search-input" type="text" placeholder="Search" [(ngModel)]="searchText" />
 
-    <mat-card-content>
-      <div class="shoe-details">
-        <p class="shoe-name">{{ shoe.name }}</p>
-        <p class="shoe-description">{{ shoe.description }}</p>
-        <p class="shoe-price">{{ shoe.price }}€</p>
-        <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
+  <div class="filter-container">
+    <input type="range" min="0" max="100" value="50" class="range-slider" id="myRange">
+    <span class="range-value">50</span>
+    <input type="checkbox" id="checkbox1" name="filter" value="filter1">
+    <label for="checkbox1">Filter 1</label><br>
+    <input type="checkbox" id="checkbox2" name="filter" value="filter2">
+    <label for="checkbox2">Filter 2</label><br>
+  </div>
+
+  <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText">
+    <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
+      <div class="shoe-image-content">
+        <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
+        <p class="shoe-discount">{{ shoe.discount }}%</p>
+        <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
+        <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
       </div>
-    </mat-card-content>
-  </mat-card>
+      <mat-card-content>
+        <div class="shoe-details">
+          <p class="shoe-name">{{ shoe.name }}</p>
+          <p class="shoe-description">{{ shoe.description }}</p>
+          <p class="shoe-price">{{ shoe.price }}€</p>
+          <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
+
