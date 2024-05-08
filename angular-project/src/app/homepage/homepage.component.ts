@@ -1,15 +1,14 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Shoes } from '../interfaces/shoes';
-import { Subject, takeUntil } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SerachPipePipe } from './serach-pipe.pipe';
 import { FormsModule } from '@angular/forms';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-homepage',
@@ -24,22 +23,8 @@ export class HomepageComponent {
   shoeService = inject(ShoesService);
   router = inject(Router);
 
-  private destroy$ = new Subject<void>();
-
   searchText = '';
-
-  shoes = signal<Shoes[]>([]);
-    
-  ngOnInit(): void {
-    this.shoeService.getShoeList()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(result => this.shoes.set(result));
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  shoes = toSignal(this.shoeService.getShoeList());
 
   goToShoeDetails(page: number) {
     let currentPage = this.activatedRoute.snapshot.queryParams['page'];
