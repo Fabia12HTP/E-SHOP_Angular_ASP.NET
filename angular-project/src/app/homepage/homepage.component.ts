@@ -9,11 +9,12 @@ import { Subject, takeUntil } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SerachPipePipe } from './serach-pipe.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipePipe],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipePipe, FormsModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
   schemas: [NO_ERRORS_SCHEMA]
