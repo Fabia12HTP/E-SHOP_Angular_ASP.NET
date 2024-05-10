@@ -4,17 +4,23 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'serachPipe',
   standalone: true
 })
-export class SerachPipePipe implements PipeTransform {
+export class SerachPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    if (!value) return null || console.error(value);
-    if (!args) return value || console.error(args);
+  transform(value: any[], args?: string): any[] {
+    if (!value) {
+      return null;
+    }
+    if (!args) {
+      return value;
+    }
 
-    args = args.toLowerCase();
+    const searchTerm = args.toLowerCase();
 
     return value.filter((item: any) => {
-      return JSON.stringify(item).toLowerCase().includes(args);
-    })
+      const descriptionMatch = item.description?.toLowerCase().includes(searchTerm);
+      const nameMatch = item.name?.toLowerCase().includes(searchTerm);
+
+      return descriptionMatch || nameMatch;
+    });
   }
 }
-

@@ -6,14 +6,14 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SerachPipePipe } from './serach-pipe.pipe';
+import { SerachPipe } from './serach-pipe.pipe';
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipePipe, FormsModule],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FormsModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
   schemas: [NO_ERRORS_SCHEMA]
