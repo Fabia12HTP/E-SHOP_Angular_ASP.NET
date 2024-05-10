@@ -1,8 +1,8 @@
-import { SerachPipePipe } from '../serach-pipe.pipe';
+import { SerachPipe } from '../pipes/serach-pipe.pipe';
 
 describe('SerachPipePipe', () => {
   it('create an instance', () => {
-    const pipe = new SerachPipePipe();
+    const pipe = new SerachPipe();
     expect(pipe).toBeTruthy();
   });
 });

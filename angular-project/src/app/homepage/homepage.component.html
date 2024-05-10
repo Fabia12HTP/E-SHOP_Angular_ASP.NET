@@ -2,16 +2,17 @@
 
   <input class="search-input" type="text" placeholder="Search" [(ngModel)]="searchText" />
 
-  <div class="filter-container">
-    <input type="range" min="0" max="100" value="50" class="range-slider" id="myRange">
-    <span class="range-value">50</span>
-    <input type="checkbox" id="checkbox1" name="filter" value="filter1">
-    <label for="checkbox1">Filter 1</label><br>
-    <input type="checkbox" id="checkbox2" name="filter" value="filter2">
-    <label for="checkbox2">Filter 2</label><br>
+  <div class="filter-container" *ngIf="filters">
+    <div class="filter-group" *ngFor="let filterName of filters">
+      <p>{{ filterName }}</p>
+      <div class="checkboxes" *ngFor="let filterValue of getSpecificFilter(filterName)">
+        <input type="checkbox" value="{{ filterValue }}" (change)="getValue($event)">
+        <label for="{{ filterValue }}">{{ filterValue }}</label><br>
+      </div>
+    </div>
   </div>
-
-  <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText">
+  
+  <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filter: filterInnerValue">
     <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
       <div class="shoe-image-content">
         <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">

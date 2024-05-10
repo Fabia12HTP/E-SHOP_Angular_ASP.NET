@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SerachPipePipe } from 'src/app/homepage/serach-pipe.pipe';
 import { HomepageComponent } from './homepage.component';
+import { SerachPipe } from './pipes/serach-pipe.pipe';
 
 @NgModule({
   declarations: [    
-    SerachPipePipe,
+    SerachPipe,
     NgModule,
     HomepageComponent],
   imports: [
