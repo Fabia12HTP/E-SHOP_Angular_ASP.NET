@@ -5,20 +5,28 @@
 
 .search-input {
   position: absolute;
-  top: 20px; /* Adjust the distance from the top as needed */
-  right: 20px; /* Adjust the distance from the right as needed */
-  z-index: 999; /* Ensure the input stays on top of other elements */
+  top: 20px;
+  right: 20px;
+  z-index: 999;
 }
 
 .filter-container {
-  float: left;
+  margin-top: 5px;
+  margin-right: 10px;
   width: 200px;
-  border: 1px solid #ddd;
-  margin-left: 10px;
+  height: fit-content;
+}
+
+.filter-group {
+
+}
+
+.filter-group p {
+  text-align: center;
+}
+
+.checkboxes {
   padding-left: 10px;
-  padding-top: 10px;
-  position: sticky;
-  top: 0;
 }
 
 .shoes-container {
