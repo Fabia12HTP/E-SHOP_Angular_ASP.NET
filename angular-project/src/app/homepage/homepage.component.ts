@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FilterParameter } from '../interfaces/filtered-shoes';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SerachPipe } from '../homepage/pipes/serach-pipe.pipe';
@@ -27,9 +28,21 @@ export class HomepageComponent {
   searchText = '';
 
   filters: Set<string> = new Set(["CENA", "ZNAČKA", "MENO", "VEĽKOSŤ", "FARBA", "MATERIÁL", "HODNOTENIE"]);
-  filterInnerValue: Set<string> = new Set([]);
+  filterIds: Set<string> = new Set([]);
+
+
+  filterParameters: FilterParameter = {
+    price: new Set<string>,
+    name: new Set<string>,
+    brand: new Set<string>,
+    size: new Set<string>,
+    color: new Set<string>,
+    material: new Set<string>,
+    rating: new Set<string>,
+  };
 
   shoes = toSignal(this.shoeService.getShoeList());
+  
 
   goToShoeDetails(page: number) {
     let currentPage = this.activatedRoute.snapshot.queryParams['page'];
@@ -43,20 +56,20 @@ export class HomepageComponent {
 
     for (const filter of this.shoes()) {
       switch (filterName) {
-        case 'CENA': filteredValues.add(filter.price.toString());
+        case 'CENA': filteredValues.add(filter.price.toString())
           break;
-        //case 'ZNAČKA': filteredValues.add(filter.shoeBrand.toString());
-        //  break;
+        case 'ZNAČKA': filteredValues.add(filter.shoeBrand.toString());
+          break;
         case 'MENO': filteredValues.add(filter.name);
           break;
-        //case 'VEĽKOSŤ': filteredValues.add(filter.shoeSize.toString());
-        //  break;
-        //case 'FARBA': filteredValues.add(filter.shoeColor);
-        //  break;
-        //case 'MATERIÁL': filteredValues.add(filter.shoeMaterial);
-        //  break;
-        //case 'HODNOTENIE': filteredValues.add(filter.rating.toString());
-        //  break;
+        case 'VEĽKOSŤ': filteredValues.add(filter.shoeSize.toString());
+          break;
+        case 'FARBA': filteredValues.add(filter.shoeColor);
+          break;
+        case 'MATERIÁL': filteredValues.add(filter.shoeMaterial);
+          break;
+        case 'HODNOTENIE': filteredValues.add(filter.rating.toString());
+          break;
       }
     }
 
@@ -65,15 +78,47 @@ export class HomepageComponent {
 
   getValue(eventHandler: any) {
 
+    const filterValue = eventHandler.target.value.toString()
+
     if (eventHandler.target.checked) {
-      this.filterInnerValue.add(eventHandler.target.value.toString());
+      switch (eventHandler.target.attributes.id.nodeValue) {
+        case 'CENA': this.filterParameters['price'].add(filterValue)
+          break;
+        case 'MENO': this.filterParameters['name'].add(filterValue)
+          break
+        case 'ZNAČKA': this.filterParameters['brand'].add(filterValue)
+          break;
+        case 'VEĽKOSŤ': this.filterParameters['size'].add(filterValue)
+          break;
+        case 'FARBA': this.filterParameters['color'].add(filterValue)
+          break;
+        case 'MATERIÁL': this.filterParameters['material'].add(filterValue)
+          break;
+        case 'HODNOTENIE': this.filterParameters['rating'].add(filterValue)
+          break;
+      }
     }
 
     else {
-      this.filterInnerValue.delete(eventHandler.target.value.toString());
+      switch (eventHandler.target.attributes.id.nodeValue) {
+        case 'CENA': this.filterParameters['price'].delete(filterValue)
+          break;
+        case 'MENO': this.filterParameters['name'].delete(filterValue)
+          break
+        case 'ZNAČKA': this.filterParameters['brand'].delete(filterValue)
+          break;
+        case 'VEĽKOSŤ': this.filterParameters['size'].delete(filterValue)
+          break;
+        case 'FARBA': this.filterParameters['color'].delete(filterValue)
+          break;
+        case 'MATERIÁL': this.filterParameters['material'].delete(filterValue)
+          break;
+        case 'HODNOTENIE': this.filterParameters['rating'].delete(filterValue)
+          break;
+      }
     }
     
-    console.log(this.filterInnerValue);
-    return this.filterInnerValue; 
+    console.log(this.filterParameters);
+    return this.filterParameters; 
   }
 }

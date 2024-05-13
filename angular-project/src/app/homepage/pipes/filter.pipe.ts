@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { FilterParameter } from '../../interfaces/filtered-shoes';
 import { Shoes } from '../../interfaces/shoes';
 
 @Pipe({
@@ -7,23 +8,29 @@ import { Shoes } from '../../interfaces/shoes';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(items: Shoes[], SearchedShoe: string): Shoes[] {
-    if (!items) { return []; }
+  transform(value: Shoes[], filterParameters: FilterParameter): any[] {
 
-    if (!SearchedShoe) { return items; }
+    const hasActiveValues = Object.values(filterParameters).some((filterValues) => filterValues.size > 0);
 
-    SearchedShoe = SearchedShoe.toLocaleLowerCase();
-    const categoriesArray = SearchedShoe.split(" ");
-    const name = SearchedShoe[0];
-    const price = SearchedShoe[1];
+    if (!value) {
+      return null;
+    }
 
+    if (!hasActiveValues) {
+      return value;
+    }
 
-    return items.filter(items => {
-      if (items && items.name) {
-        return items.name.toLocaleLowerCase().includes(name) || items.name.toLocaleLowerCase().includes(price);
-      }
-      return false;
+    return value.filter((item: Shoes) => {
+      
+      const priceMatch = filterParameters['price'].has(item.price.toString());
+      const nameMatch = filterParameters['name'].has(item.name.toLowerCase());
+      const brandMatch = filterParameters['brand'].has(item.shoeBrand.toLowerCase());
+      const sizeMatch = filterParameters['size'].has(item.shoeSize.toString());
+      const colorMatch = filterParameters['color'].has(item.shoeColor.toLowerCase());
+      const materialMatch = filterParameters['material'].has(item.shoeMaterial.toLowerCase());
+      const ratingMatch = filterParameters['rating'].has(item.rating.toString());
+
+      return priceMatch || nameMatch || brandMatch || sizeMatch || colorMatch || materialMatch || ratingMatch;
     });
   }
-
 }

@@ -6,13 +6,13 @@
     <div class="filter-group" *ngFor="let filterName of filters">
       <p>{{ filterName }}</p>
       <div class="checkboxes" *ngFor="let filterValue of getSpecificFilter(filterName)">
-        <input type="checkbox" value="{{ filterValue }}" (change)="getValue($event)">
+        <input type="checkbox" id="{{ filterName }}" value="{{ filterValue }}" (change)="getValue($event)">
         <label for="{{ filterValue }}">{{ filterValue }}</label><br>
       </div>
     </div>
   </div>
   
-  <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filter: filterInnerValue">
+  <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filterPipe: filterParameters">
     <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
       <div class="shoe-image-content">
         <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
@@ -31,4 +31,3 @@
     </mat-card>
   </div>
 </div>
-

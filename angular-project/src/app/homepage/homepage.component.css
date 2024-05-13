@@ -17,16 +17,14 @@
   height: fit-content;
 }
 
-.filter-group {
-
-}
-
 .filter-group p {
   text-align: center;
+  margin-top: 10px;
 }
 
 .checkboxes {
   padding-left: 10px;
+  margin-bottom: 5px;
 }
 
 .shoes-container {
