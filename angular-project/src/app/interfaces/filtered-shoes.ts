@@ -1,3 +1,9 @@
 export interface FilterParameter {
-  [key: string]: Set<string>;
+  price: Set<number>,
+  name: Set<string>,
+  brand: Set<string>,
+  size: Set<number>,
+  color: Set<string>,
+  material: Set<string>,
+  rating: Set<number>
 }

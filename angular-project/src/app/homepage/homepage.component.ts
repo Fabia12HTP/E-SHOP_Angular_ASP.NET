@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -9,8 +9,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SerachPipe } from '../homepage/pipes/serach-pipe.pipe';
 import { FormsModule } from '@angular/forms';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { FilterPipe } from './pipes/filter.pipe';
+import { Subject, takeUntil } from 'rxjs';
+import { Shoes } from '../interfaces/shoes';
 
 @Component({
   selector: 'app-homepage',
@@ -25,25 +26,36 @@ export class HomepageComponent {
   shoeService = inject(ShoesService);
   router = inject(Router);
 
+  private destroy$ = new Subject<void>();
+
   searchText = '';
 
   filters: Set<string> = new Set(["CENA", "ZNAČKA", "MENO", "VEĽKOSŤ", "FARBA", "MATERIÁL", "HODNOTENIE"]);
   filterIds: Set<string> = new Set([]);
 
-
-  filterParameters: FilterParameter = {
-    price: new Set<string>,
-    name: new Set<string>,
-    brand: new Set<string>,
-    size: new Set<string>,
-    color: new Set<string>,
-    material: new Set<string>,
-    rating: new Set<string>,
+  public filterParameters: FilterParameter = {
+      price: new Set<number>,
+      name: new Set<string>,
+      brand: new Set<string>,
+      size: new Set<number>,
+      color: new Set<string>,
+      material: new Set<string>,
+      rating: new Set<number>
   };
-
-  shoes = toSignal(this.shoeService.getShoeList());
   
+  shoes = signal<Shoes[]>([]);
 
+  ngOnInit(): void {
+    this.shoeService.getShoeList()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => this.shoes.set(result));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  
   goToShoeDetails(page: number) {
     let currentPage = this.activatedRoute.snapshot.queryParams['page'];
     currentPage = page;
@@ -78,47 +90,48 @@ export class HomepageComponent {
 
   getValue(eventHandler: any) {
 
-    const filterValue = eventHandler.target.value.toString()
+    const filterValue = eventHandler.target.value
 
     if (eventHandler.target.checked) {
       switch (eventHandler.target.attributes.id.nodeValue) {
-        case 'CENA': this.filterParameters['price'].add(filterValue)
+        case 'CENA': this.filterParameters.price.add(filterValue)
           break;
-        case 'MENO': this.filterParameters['name'].add(filterValue)
+        case 'MENO': this.filterParameters.name.add(filterValue)
           break
-        case 'ZNAČKA': this.filterParameters['brand'].add(filterValue)
+        case 'ZNAČKA': this.filterParameters.brand.add(filterValue)
           break;
-        case 'VEĽKOSŤ': this.filterParameters['size'].add(filterValue)
+        case 'VEĽKOSŤ': this.filterParameters.size.add(filterValue)
           break;
-        case 'FARBA': this.filterParameters['color'].add(filterValue)
+        case 'FARBA': this.filterParameters.color.add(filterValue)
           break;
-        case 'MATERIÁL': this.filterParameters['material'].add(filterValue)
+        case 'MATERIÁL': this.filterParameters.material.add(filterValue)
           break;
-        case 'HODNOTENIE': this.filterParameters['rating'].add(filterValue)
+        case 'HODNOTENIE': this.filterParameters.rating.add(filterValue)
           break;
       }
     }
 
     else {
       switch (eventHandler.target.attributes.id.nodeValue) {
-        case 'CENA': this.filterParameters['price'].delete(filterValue)
+        case 'CENA': this.filterParameters.price.delete(filterValue)
           break;
-        case 'MENO': this.filterParameters['name'].delete(filterValue)
+        case 'MENO': this.filterParameters.name.delete(filterValue)
           break
-        case 'ZNAČKA': this.filterParameters['brand'].delete(filterValue)
+        case 'ZNAČKA': this.filterParameters.brand.delete(filterValue)
           break;
-        case 'VEĽKOSŤ': this.filterParameters['size'].delete(filterValue)
+        case 'VEĽKOSŤ': this.filterParameters.size.delete(filterValue)
           break;
-        case 'FARBA': this.filterParameters['color'].delete(filterValue)
+        case 'FARBA': this.filterParameters.color.delete(filterValue)
           break;
-        case 'MATERIÁL': this.filterParameters['material'].delete(filterValue)
+        case 'MATERIÁL': this.filterParameters.material.delete(filterValue)
           break;
-        case 'HODNOTENIE': this.filterParameters['rating'].delete(filterValue)
+        case 'HODNOTENIE': this.filterParameters.rating.delete(filterValue)
           break;
       }
     }
-    
-    console.log(this.filterParameters);
+
+    console.log(this.filterParameters)
+
     return this.filterParameters; 
   }
 }

@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Shoes } from '../../interfaces/shoes';
 
 @Pipe({
   name: 'serachPipe',
@@ -16,10 +17,12 @@ export class SerachPipe implements PipeTransform {
 
     const searchTerm = args.toLowerCase();
 
-    return value.filter((item: any) => {
-      const descriptionMatch = item.description?.toLowerCase().includes(searchTerm);
-      const nameMatch = item.name?.toLowerCase().includes(searchTerm);
+    return value.filter((item: Shoes) => {
+      const descriptionMatch = item.description.toLowerCase().includes(searchTerm);
+      const nameMatch = item.name.toLowerCase().includes(searchTerm);
 
+      console.log(searchTerm)
+      
       return descriptionMatch || nameMatch;
     });
   }

@@ -22,15 +22,15 @@ export class FilterPipe implements PipeTransform {
 
     return value.filter((item: Shoes) => {
       
-      const priceMatch = filterParameters['price'].has(item.price.toString());
-      const nameMatch = filterParameters['name'].has(item.name.toLowerCase());
-      const brandMatch = filterParameters['brand'].has(item.shoeBrand.toLowerCase());
-      const sizeMatch = filterParameters['size'].has(item.shoeSize.toString());
-      const colorMatch = filterParameters['color'].has(item.shoeColor.toLowerCase());
-      const materialMatch = filterParameters['material'].has(item.shoeMaterial.toLowerCase());
-      const ratingMatch = filterParameters['rating'].has(item.rating.toString());
+      const priceMatch = filterParameters.price.has(10.99);
+      const nameMatch = filterParameters.name.has(item.name.toLowerCase());
+      const brandMatch = filterParameters.brand.has(item.shoeBrand.toLowerCase());
+      const sizeMatch = filterParameters.size.has(item.shoeSize);
+      const colorMatch = filterParameters.color.has(item.shoeColor.toLowerCase());
+      const materialMatch = filterParameters.material.has(item.shoeMaterial.toLowerCase());
+      const ratingMatch = filterParameters.rating.has(item.rating);
 
-      return priceMatch || nameMatch || brandMatch || sizeMatch || colorMatch || materialMatch || ratingMatch;
+      return priceMatch  || nameMatch || brandMatch || sizeMatch || colorMatch || materialMatch || ratingMatch;
     });
   }
 }

@@ -9,7 +9,7 @@
     "\\angular-project\\src\\app\\homepage\\pipes",
     "\\angular-project\\src\\app\\interfaces",
     "\\angular-project\\src\\app\\services",
-    "\\angular-project\\src\\app\\shoe-details"
+    "\\AspNetWebAPI"
   ],
   "SelectedNode": "\\angular-project\\src\\app\\homepage\\pipes\\filter.pipe.ts",
   "PreviewInSolutionExplorer": false
