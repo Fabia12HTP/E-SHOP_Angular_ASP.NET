@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\angular-project",
-    "\\angular-project\\.angular",
     "\\angular-project\\src",
     "\\angular-project\\src\\app",
     "\\angular-project\\src\\app\\homepage",
     "\\angular-project\\src\\app\\homepage\\pipes",
     "\\angular-project\\src\\app\\interfaces",
-    "\\angular-project\\src\\app\\services",
-    "\\AspNetWebAPI"
+    "\\AspNetWebAPI",
+    "\\AspNetWebAPI\\Migrations",
+    "\\AspNetWebAPI\\Models"
   ],
-  "SelectedNode": "\\angular-project\\src\\app\\homepage\\pipes\\filter.pipe.ts",
+  "SelectedNode": "\\angular-project\\src\\app\\homepage\\homepage.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -26,6 +26,12 @@ export class HomepageComponent {
   shoeService = inject(ShoesService);
   router = inject(Router);
 
+  constructor() {
+    effect(() => {
+      console.log("Filter parameters changed:", this.filterParameters());
+    });
+  }
+
   private destroy$ = new Subject<void>();
 
   searchText = '';
@@ -33,16 +39,16 @@ export class HomepageComponent {
   filters: Set<string> = new Set(["CENA", "ZNAČKA", "MENO", "VEĽKOSŤ", "FARBA", "MATERIÁL", "HODNOTENIE"]);
   filterIds: Set<string> = new Set([]);
 
-  public filterParameters: FilterParameter = {
-      price: new Set<number>,
-      name: new Set<string>,
-      brand: new Set<string>,
-      size: new Set<number>,
-      color: new Set<string>,
-      material: new Set<string>,
-      rating: new Set<number>
-  };
-  
+  public filterParameters = signal<FilterParameter>({
+    price: new Set<number>(),
+    name: new Set<string>(),
+    brand: new Set<string>(),
+    size: new Set<number>(),
+    color: new Set<string>(),
+    material: new Set<string>(),
+    rating: new Set<number>()
+  });
+
   shoes = signal<Shoes[]>([]);
 
   ngOnInit(): void {
@@ -55,7 +61,7 @@ export class HomepageComponent {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  
+
   goToShoeDetails(page: number) {
     let currentPage = this.activatedRoute.snapshot.queryParams['page'];
     currentPage = page;
@@ -89,49 +95,52 @@ export class HomepageComponent {
   }
 
   getValue(eventHandler: any) {
+    const filterName = eventHandler.target.attributes.id.nodeValue;
+    let filterValue = eventHandler.target.value;
 
-    const filterValue = eventHandler.target.value
+    // Konvertujte hodnotu na číslo, ak je to potrebné
+    if (filterName === 'CENA' || filterName === 'VEĽKOSŤ' || filterName === 'HODNOTENIE') {
+      filterValue = +filterValue;
+    }
+
+    const newFilterParameters = { ...this.filterParameters() };
 
     if (eventHandler.target.checked) {
-      switch (eventHandler.target.attributes.id.nodeValue) {
-        case 'CENA': this.filterParameters.price.add(filterValue)
+      switch (filterName) {
+        case 'CENA': newFilterParameters.price.add(filterValue);
           break;
-        case 'MENO': this.filterParameters.name.add(filterValue)
-          break
-        case 'ZNAČKA': this.filterParameters.brand.add(filterValue)
+        case 'MENO': newFilterParameters.name.add(filterValue);
           break;
-        case 'VEĽKOSŤ': this.filterParameters.size.add(filterValue)
+        case 'ZNAČKA': newFilterParameters.brand.add(filterValue);
           break;
-        case 'FARBA': this.filterParameters.color.add(filterValue)
+        case 'VEĽKOSŤ': newFilterParameters.size.add(filterValue);
           break;
-        case 'MATERIÁL': this.filterParameters.material.add(filterValue)
+        case 'FARBA': newFilterParameters.color.add(filterValue);
           break;
-        case 'HODNOTENIE': this.filterParameters.rating.add(filterValue)
+        case 'MATERIÁL': newFilterParameters.material.add(filterValue);
+          break;
+        case 'HODNOTENIE': newFilterParameters.rating.add(filterValue);
+          break;
+      }
+    } else {
+      switch (filterName) {
+        case 'CENA': newFilterParameters.price.delete(filterValue);
+          break;
+        case 'MENO': newFilterParameters.name.delete(filterValue);
+          break;
+        case 'ZNAČKA': newFilterParameters.brand.delete(filterValue);
+          break;
+        case 'VEĽKOSŤ': newFilterParameters.size.delete(filterValue);
+          break;
+        case 'FARBA': newFilterParameters.color.delete(filterValue);
+          break;
+        case 'MATERIÁL': newFilterParameters.material.delete(filterValue);
+          break;
+        case 'HODNOTENIE': newFilterParameters.rating.delete(filterValue);
           break;
       }
     }
 
-    else {
-      switch (eventHandler.target.attributes.id.nodeValue) {
-        case 'CENA': this.filterParameters.price.delete(filterValue)
-          break;
-        case 'MENO': this.filterParameters.name.delete(filterValue)
-          break
-        case 'ZNAČKA': this.filterParameters.brand.delete(filterValue)
-          break;
-        case 'VEĽKOSŤ': this.filterParameters.size.delete(filterValue)
-          break;
-        case 'FARBA': this.filterParameters.color.delete(filterValue)
-          break;
-        case 'MATERIÁL': this.filterParameters.material.delete(filterValue)
-          break;
-        case 'HODNOTENIE': this.filterParameters.rating.delete(filterValue)
-          break;
-      }
-    }
-
-    console.log(this.filterParameters)
-
-    return this.filterParameters; 
+    this.filterParameters.set(newFilterParameters);
   }
 }
