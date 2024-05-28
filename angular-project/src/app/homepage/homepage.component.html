@@ -12,7 +12,7 @@
     </div>
   </div>
   
-  <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filterPipe: filterParameters">
+  <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filterPipe: filterParameters()">
     <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
       <div class="shoe-image-content">
         <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">

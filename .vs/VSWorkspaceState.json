@@ -11,6 +11,6 @@
     "\\AspNetWebAPI\\Migrations",
     "\\AspNetWebAPI\\Models"
   ],
-  "SelectedNode": "\\angular-project\\src\\app\\homepage\\homepage.component.ts",
+  "SelectedNode": "\\angular-project\\src\\app\\homepage\\pipes\\filter.pipe.ts",
   "PreviewInSolutionExplorer": false
 }
