@@ -4,13 +4,13 @@
     "\\angular-project",
     "\\angular-project\\src",
     "\\angular-project\\src\\app",
+    "\\angular-project\\src\\app\\api-authorization",
+    "\\angular-project\\src\\app\\api-authorization\\registration",
     "\\angular-project\\src\\app\\homepage",
-    "\\angular-project\\src\\app\\homepage\\pipes",
     "\\angular-project\\src\\app\\interfaces",
-    "\\AspNetWebAPI",
-    "\\AspNetWebAPI\\Migrations",
-    "\\AspNetWebAPI\\Models"
+    "\\angular-project\\src\\app\\services",
+    "\\AspNetWebAPI"
   ],
-  "SelectedNode": "\\angular-project\\src\\app\\homepage\\pipes\\filter.pipe.ts",
+  "SelectedNode": "\\AspNetWebAPI\\AspNetWebAPI.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -1,6 +1,6 @@
 mat-toolbar {
   button {
-    margin-left: auto;
+    margin-left: auto;  
   }
 }
 
@@ -10,4 +10,8 @@ mat-toolbar {
 
 .mat-icon-size {
   transform: scale(2);
+}
+
+.buttons {
+  margin-right: 170px;
 }

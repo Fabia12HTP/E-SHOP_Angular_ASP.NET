@@ -1,6 +1,6 @@
 .homepage {
   display: flex;
-  min-height: 100vh;
+  min-height: 100vh; 
 }
 
 .search-input {
@@ -24,15 +24,22 @@
 
 .checkboxes {
   padding-left: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   width: 150px;
-  margin-top: 10px;
+  margin-top: 2px;
+}
+
+.allshoes {
+  display: flex;
+  overflow-y: auto;
+  flex-wrap: wrap;
+  height: calc(100vh - 50px);
+  margin-left: 40px;
 }
 
 .shoes-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 0;
 }
 
 .shoes-frame {
@@ -40,22 +47,22 @@
   border-radius: 15px;
   width: 375px;
   height: 375px;
-  margin: 17px;
+  margin: 17px 50px 20px 25px;
 }
 
 .shoe-image-content {
-  width: 375px;
+  width: 100%;
   height: 300px;
   position: relative;
   overflow: hidden;
 }
 
-  .shoe-image-content img {
-    border-radius: 15px 15px 0px 0px;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+.shoe-image-content img {
+  border-radius: 15px 15px 0 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .shoe-discount {
   width: 35px;
@@ -128,13 +135,36 @@
   color: #011627;
 }
 
-  .shoe-price-before:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 1.5px;
-    background-color: #011627;
-    left: 0;
-    top: 50%;
-    transform: rotate(-6deg);
-  }
+.shoe-price-before:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1.5px;
+  background-color: #011627;
+  left: 0;
+  top: 50%;
+  transform: rotate(-6deg);
+}
+
+.shoe-rating {
+  position: absolute;
+  top: 10px; 
+  right: 10px; 
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  color: gold;
+  font-size: 20px; 
+  margin-right: 2px;
+}
+
+.cart {
+  position: absolute;
+  bottom: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  font-size: 24px; /* Adjust icon size if needed */
+  color: #000; /* Change color if needed */
+  cursor: pointer; /* Add a pointer cursor if you want it to be clickable */
+}

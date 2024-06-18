@@ -11,3 +11,14 @@ h1 {
   justify-content: center;
   height: 100vh;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.text {
+  margin-right: 10px;
+  margin-top: 12px;
+}

@@ -1,19 +1,23 @@
 <mat-toolbar>
-  <span>E-Shop</span>
+  <span>FOOTSHOP</span>
   <span class="spacer"></span>
 
   <mat-icon class="home-icon" [routerLink]="['/home']">home</mat-icon>
   <mat-icon>new_releases</mat-icon>
   <mat-icon>notifications_active</mat-icon>
-  <mat-icon class="shopping-cart" [routerLink]="['/home/cart']">shopping_cart</mat-icon>
-  <mat-icon class="user-icon" [routerLink]="['/home/gej']">supervised_user_circle</mat-icon>
+  <mat-icon class="shopping-cart" [routerLink]="['/cart']">shopping_cart</mat-icon>
+  <mat-icon class="user-icon" [routerLink]="['/profile']">supervised_user_circle</mat-icon>
 
   @if (authService.authenticated()) {
-  <button mat-button (click)="logout()">Logout</button>
+  <div class="buttons">
+    <button mat-button (click)="logout()">Logout</button>
+  </div>
   }
 
   @else {
-  <button mat-button [routerLink]="['/login']">Login</button>
-  <button mat-button [routerLink]="['/register']">Registration</button>
+  <div class="buttons">
+    <button mat-button [routerLink]="['/login']">Login</button>
+    <button mat-button [routerLink]="['/register']">Registration</button>
+  </div>
   }
 </mat-toolbar>

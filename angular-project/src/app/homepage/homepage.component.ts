@@ -3,6 +3,7 @@ import { ShoesService } from '../services/shoes.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { FilterParameter } from '../interfaces/filtered-shoes';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -12,11 +13,13 @@ import { FormsModule } from '@angular/forms';
 import { FilterPipe } from './pipes/filter.pipe';
 import { Subject, takeUntil } from 'rxjs';
 import { Shoes } from '../interfaces/shoes';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from '../api-authorization/authentication.service';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FilterPipe, FormsModule],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FilterPipe, FormsModule, MatIconModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
   schemas: [NO_ERRORS_SCHEMA]
@@ -24,6 +27,8 @@ import { Shoes } from '../interfaces/shoes';
 export class HomepageComponent {
   activatedRoute = inject(ActivatedRoute);
   shoeService = inject(ShoesService);
+  authService = inject(AuthenticationService);
+  snackBar = inject(MatSnackBar);
   router = inject(Router);
 
   constructor() {
@@ -67,6 +72,18 @@ export class HomepageComponent {
     currentPage = page;
 
     this.router.navigate(['home/detail'], { queryParams: { page: currentPage } });
+  }
+
+  navigateToRegPage() {
+    if (!this.authService.authenticated()) {
+      this.router.navigate(['/login']);
+    }
+
+    else {
+      this.snackBar.open('Shoe added to cart!', 'OK!', {
+        duration: 3000,
+      });
+    }
   }
 
   getSpecificFilter(filterName: string) {
@@ -142,5 +159,17 @@ export class HomepageComponent {
     }
 
     this.filterParameters.set(newFilterParameters);
+  }
+
+  getStars(rating: number): string[] {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 !== 0;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+    return [
+      ...Array(fullStars).fill('star'),
+      ...(halfStar ? ['star_half'] : []),
+      ...Array(emptyStars).fill('star_border')
+    ];
   }
 }

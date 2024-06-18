@@ -1,6 +1,6 @@
 <div class="homepage" *ngIf="shoes">
 
-  <input class="search-input" type="text" placeholder="Search" [(ngModel)]="searchText" />
+  <input class="search-input" type="text" placeholder="Hľadaj značky..." [(ngModel)]="searchText" />
 
   <div class="filter-container" *ngIf="filters">
     <div class="filter-group" *ngFor="let filterName of filters">
@@ -11,23 +11,31 @@
       </div>
     </div>
   </div>
-  
-  <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filterPipe: filterParameters()">
-    <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
-      <div class="shoe-image-content">
-        <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
-        <p class="shoe-discount">{{ shoe.discount }}%</p>
-        <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
-        <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
-      </div>
-      <mat-card-content>
-        <div class="shoe-details">
-          <p class="shoe-name">{{ shoe.name }}</p>
-          <p class="shoe-description">{{ shoe.description }}</p>
-          <p class="shoe-price">{{ shoe.price }}€</p>
-          <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
+
+  <div class="allshoes">
+    <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filterPipe: filterParameters()">
+      <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
+        <div class="shoe-image-content">
+          <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
+          <p class="shoe-discount">{{ shoe.discount }}%</p>
+          <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
+          <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
+          <div class="shoe-rating">
+            <mat-icon *ngFor="let star of getStars(shoe.rating)" class="star">
+              {{ star }}
+            </mat-icon>
+          </div>
         </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+        <mat-card-content>
+          <div class="shoe-details">
+            <p class="shoe-name">{{ shoe.name }}</p>
+            <p class="shoe-description">{{ shoe.description }}</p>
+            <p class="shoe-price">{{ shoe.price }}€</p>
+            <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
+            <mat-icon class="cart" (click)="navigateToRegPage()">shopping_cart</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div> 
 </div>

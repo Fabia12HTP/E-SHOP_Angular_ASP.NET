@@ -12,6 +12,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { errorHandlerInterceptor } from './app/api-authorization/error-handler.interceptor';
 import { authGuard } from './app/api-authorization/auth.guard';
 import { jwtInterceptor } from './app/api-authorization/jwt.interceptor';
+import { ShoppingCartComponent } from './app/shopping-cart/shopping-cart.component';
+import { UserProfileComponent } from './app/user-profile/user-profile.component';
 
 export function getBaseUrl() {
   return 'https://localhost:7186/api';
@@ -42,7 +44,9 @@ bootstrapApplication(AppComponent, {
         { path: 'home', component: HomepageComponent},
         { path: 'login', component: LoginComponent},
         { path: 'register', component: RegistrationComponent },
-        { path: 'home/detail', component: ShoeDetailsComponent, data: { page: ':page' } }
+        { path: 'home/detail', component: ShoeDetailsComponent, data: { page: ':page' } },
+        { path: 'cart', component: ShoppingCartComponent, canActivate: [authGuard] },
+        { path: 'profile', component: UserProfileComponent, canActivate: [authGuard] }     
       ])
     ]
 })

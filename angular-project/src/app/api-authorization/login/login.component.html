@@ -13,5 +13,9 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit">Login</button>
+    <div class="container">
+      <p class="text">Nemáš u nás účet?</p>
+      <button mat-raised-button class="registerB" color="primary" [routerLink]="['/register']">Register NOW!</button>
+    </div>
   </form>
 }
