@@ -1,6 +1,7 @@
 .homepage {
   display: flex;
-  min-height: 100vh; 
+  min-height: 100vh;
+  background-image: url(https://image.slidesdocs.com/responsive-images/background/abstract-wallpaper-technology-business-white-color-powerpoint-background_e4ef4da124__960_540.jpg);
 }
 
 .search-input {
@@ -45,7 +46,7 @@ mat-slider {
   flex-wrap: wrap;
   height: calc(100vh - 50px);
   margin-left: 40px;
-  background-image: url(https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjk5Ni0wMDguanBn.jpg);
+ 
 }
 
 .shoes-container {

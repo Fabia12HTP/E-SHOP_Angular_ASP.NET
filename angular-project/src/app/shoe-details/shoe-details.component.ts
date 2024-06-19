@@ -3,8 +3,11 @@ import { ShoesService } from '../services/shoes.service';
 import { CommonModule } from '@angular/common';
 import { Shoes } from '../interfaces/shoes';
 import { Subject, takeUntil } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthenticationService } from '../api-authorization/authentication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-shoe-details',
@@ -16,6 +19,10 @@ import { MatIconModule } from '@angular/material/icon';
 export class ShoeDetailsComponent {
   shoeService = inject(ShoesService);
   activatedRoute = inject(ActivatedRoute);
+  cartServise = inject(CartService);
+  authService = inject(AuthenticationService);
+  snackBar = inject(MatSnackBar);
+  router = inject(Router);
 
   private destroy$ = new Subject<void>(); 
 
@@ -44,6 +51,19 @@ export class ShoeDetailsComponent {
     this.shoeService.getShoeDetailsList(page)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => this.shoesD.set(result));
+  }
+
+  addToCart(product: Shoes) {
+    if (!this.authService.authenticated()) {
+      this.router.navigate(['/login']);
+    }
+
+    else {
+      this.cartServise.addToCart(product);
+      this.snackBar.open('SHOE added to cart!', '', {
+        duration: 3000,
+      });
+    }
   }
 
   getStars(rating: number): string[] {
