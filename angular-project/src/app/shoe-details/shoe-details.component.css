@@ -1,0 +1,88 @@
+.shoe-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  background-image: url(https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjk5Ni0wMDguanBn.jpg);
+}
+
+.shoe-detail {
+  display: flex;
+  max-width: 1600px;
+  width: 1600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.shoe-info {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+.shoe-name {
+  font-size: 30px;
+  color: #011627;
+  font-family: Cambria;
+  margin-bottom: 10px;
+}
+
+.shoe-description {
+  font-size: 20px;
+  color: #22333B;
+  font-family: Georgia;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.shoe-rating {
+  margin-bottom: 15px;
+}
+
+.star {
+  color: gold;
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.shoe-colors {
+  margin-bottom: 20px;
+}
+
+.color-button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  margin: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #2EC4B6;
+}
+
+.add-to-cart-button {
+  font-size: 18px;
+  font-weight: 900;
+  font-family: Cambria;
+  color: #FDFFFC;
+  background-color: #2EC4B6;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.shoe-image-container {
+  flex: 1;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shoe-image {
+  max-width: 100%;
+  height: auto;
+}

@@ -12,7 +12,7 @@
 
 .filter-container {
   margin-top: 5px;
-  margin-right: 10px;
+  margin-right: 0px;
   width: 200px;
   height: fit-content;
 }
@@ -29,12 +29,23 @@
   margin-top: 2px;
 }
 
+.filter-count {
+  font-size: 11px; 
+  color: #A9A9A9; 
+}
+
+mat-slider {
+  width: 100px;
+  margin-left: 20px;
+}
+
 .allshoes {
   display: flex;
   overflow-y: auto;
   flex-wrap: wrap;
   height: calc(100vh - 50px);
   margin-left: 40px;
+  background-image: url(https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjk5Ni0wMDguanBn.jpg);
 }
 
 .shoes-container {
@@ -162,9 +173,9 @@
 
 .cart {
   position: absolute;
-  bottom: 10px; /* Adjust as needed */
-  right: 10px; /* Adjust as needed */
-  font-size: 24px; /* Adjust icon size if needed */
-  color: #000; /* Change color if needed */
-  cursor: pointer; /* Add a pointer cursor if you want it to be clickable */
+  bottom: 10px; 
+  right: 10px; 
+  font-size: 24px; 
+  color: #000; 
+  cursor: pointer; 
 }

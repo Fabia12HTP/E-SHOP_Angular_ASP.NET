@@ -5,9 +5,28 @@
   <div class="filter-container" *ngIf="filters">
     <div class="filter-group" *ngFor="let filterName of filters">
       <p>{{ filterName }}</p>
-      <div class="checkboxes" *ngFor="let filterValue of getSpecificFilter(filterName)">
-        <input type="checkbox" id="{{ filterName }}" value="{{ filterValue }}" (change)="getValue($event)">
-        <label for="{{ filterValue }}">{{ filterValue }}</label><br>
+      <div *ngIf="filterName === 'CENA'">
+        <mat-slider class="example-margin"
+                    [max]="priceMax"
+                    [min]="priceMin"
+                    step="1"
+                    showTickMarks discrete [displayWith]="formatLabel">
+          <input matSliderThumb [(ngModel)]="value" (change)="updatePriceFilter()" #slider>
+        </mat-slider>
+      </div>
+      <div *ngIf="filterName !== 'CENA'">
+        <div class="checkboxes" *ngFor="let filterValue of getSpecificFilter(filterName)">
+          <input type="checkbox" id="{{ filterName }}" value="{{ filterValue }}"
+                 (change)="getValue($event)">
+          <label for="{{ filterValue }}">
+            {{
+             filterName === 'VEĽKOSŤ' ? (filterValue + ' EUR') :
+             filterName === 'HODNOTENIE' ? (filterValue + ' ★') :
+             filterValue
+            }}
+            <span class="filter-count">[{{ getFilterCount(filterName, filterValue) }}]</span>
+          </label><br>
+        </div>
       </div>
     </div>
   </div>
@@ -15,6 +34,8 @@
   <div class="allshoes">
     <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filterPipe: filterParameters()">
       <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
+
+        @if (shoe.discount != null) {
         <div class="shoe-image-content">
           <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
           <p class="shoe-discount">{{ shoe.discount }}%</p>
@@ -32,10 +53,34 @@
             <p class="shoe-description">{{ shoe.description }}</p>
             <p class="shoe-price">{{ shoe.price }}€</p>
             <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
-            <mat-icon class="cart" (click)="navigateToRegPage()">shopping_cart</mat-icon>
+            <mat-icon class="cart" (click)="addToCart($event, shoe)">shopping_cart</mat-icon>
           </div>
         </mat-card-content>
+        }
+
+        @else {
+        <div class="shoe-image-content">
+          <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
+          <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
+          <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
+          <div class="shoe-rating">
+            <mat-icon *ngFor="let star of getStars(shoe.rating)" class="star">
+              {{ star }}
+            </mat-icon>
+          </div>
+        </div>
+        <mat-card-content>
+          <div class="shoe-details">
+            <p class="shoe-name">{{ shoe.name }}</p>
+            <p class="shoe-description">{{ shoe.description }}</p>
+            <p class="shoe-price">{{ shoe.price }}€</p>
+            <mat-icon class="cart" (click)="addToCart($event, shoe)">shopping_cart</mat-icon>
+          </div>
+        </mat-card-content>
+        }
+
       </mat-card>
     </div>
-  </div> 
+  </div>
 </div>
+

@@ -1,16 +1,21 @@
-<div *ngIf="shoesD()">
-  <a>
-    <img class="shoe-image" [src]="shoesD().urlPicture" alt="Shoe-Image" />
-    <div class="content">
-      <h1 class="shoe-name">
-        {{ shoesD().name }}
-      </h1>
-      <p class="shoe-description">
-        {{ shoesD().description }}
-      </p>
-      <p class="shoe-price">
-        {{ shoesD().price }}
-      </p>
+<div class="shoe-detail-container" *ngIf="shoesD()">
+  <div class="shoe-detail">
+    <div class="shoe-info">
+      <h1 class="shoe-name">{{ shoesD().name }}</h1>
+      <p class="shoe-description">{{ shoesD().description }}</p>
+      <div class="shoe-rating">
+        <mat-icon *ngFor="let star of getStars(shoesD().rating)" class="star">
+          {{ star }}
+        </mat-icon>
+      </div>
+      <div class="shoe-colors">
+        <p>FAREBNÁ KOMBINÁCIA:</p>
+        <button class="color-button" [ngStyle]="{'background-color': shoesD().shoeColor}" (click)="selectColor(shoesD().shoeColor)"></button>
+      </div>
+      <button class="add-to-cart-button">PRIDAŤ DO KOŠÍKA</button>
     </div>
-  </a>
+    <div class="shoe-image-container">
+      <img class="shoe-image" [src]="shoesD().urlPicture" alt="Shoe Image" />
+    </div>
+  </div>
 </div>

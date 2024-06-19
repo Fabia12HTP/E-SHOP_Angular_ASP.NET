@@ -24,7 +24,7 @@ export function tokenGetter() {
 }
 
 const providers = [
-  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
+  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
 ];
 
 bootstrapApplication(AppComponent, {

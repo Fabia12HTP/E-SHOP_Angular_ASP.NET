@@ -77,7 +77,7 @@ namespace AspNetCoreAPI.Services
             float? OnePercent;
             float? ActualPriceOfPercentage;
                     
-            if(price != null || discount != null)
+            if(priceBefore != null || discount != null)
             {
                 OnePercent = (price / 100);
 
@@ -90,7 +90,7 @@ namespace AspNetCoreAPI.Services
 
             else
             {
-                return null;
+                return price;
             }
         }
     }

@@ -20,8 +20,7 @@ export class FilterPipe implements PipeTransform {
     }
 
     return value.filter((item: Shoes) => {
-      console.log(filterParameters);
-      const priceMatch = filterParameters.price.has(item.price);
+      const priceMatch = item.price <= filterParameters.price.values().next().value;
       const nameMatch = filterParameters.name.has(item.name);
       const brandMatch = filterParameters.brand.has(item.shoeBrand);
       const sizeMatch = filterParameters.size.has(item.shoeSize);
