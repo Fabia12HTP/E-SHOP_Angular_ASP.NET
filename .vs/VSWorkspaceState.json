@@ -4,13 +4,13 @@
     "\\angular-project",
     "\\angular-project\\src",
     "\\angular-project\\src\\app",
-    "\\angular-project\\src\\app\\api-authorization",
-    "\\angular-project\\src\\app\\api-authorization\\registration",
     "\\angular-project\\src\\app\\homepage",
-    "\\angular-project\\src\\app\\interfaces",
-    "\\angular-project\\src\\app\\services",
-    "\\AspNetWebAPI"
+    "\\angular-project\\src\\app\\main-nav",
+    "\\AspNetWebAPI",
+    "\\AspNetWebAPI\\DTOs",
+    "\\AspNetWebAPI\\Migrations",
+    "\\AspNetWebAPI\\Services"
   ],
-  "SelectedNode": "\\.github",
+  "SelectedNode": "\\angular-project\\src\\app\\main-nav\\main-nav.component.html",
   "PreviewInSolutionExplorer": false
 }
