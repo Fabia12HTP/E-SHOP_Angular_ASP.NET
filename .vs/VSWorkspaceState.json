@@ -2,13 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\angular-project",
+    "\\angular-project\\.angular",
+    "\\angular-project\\n",
+    "\\angular-project\\public",
     "\\angular-project\\src",
-    "\\angular-project\\src\\app",
     "\\AspNetWebAPI",
-    "\\AspNetWebAPI\\DTOs",
-    "\\AspNetWebAPI\\Migrations",
-    "\\AspNetWebAPI\\Services"
+    "\\AspNetWebAPI\\Services",
+    "\\dataconnect",
+    "\\dataconnect\\connector"
   ],
-  "SelectedNode": "\\angular-project\\src",
+  "SelectedNode": "\\angular-project\\firebase.json",
   "PreviewInSolutionExplorer": false
 }

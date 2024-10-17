@@ -44,7 +44,7 @@ mat-slider {
   display: flex;
   overflow-y: auto;
   flex-wrap: wrap;
-  height: calc(100vh - 50px);
+/*  height: calc(100vh - 50px);*/
   margin-left: 40px;
  
 }
