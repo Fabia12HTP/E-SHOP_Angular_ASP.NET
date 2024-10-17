@@ -227,6 +227,16 @@ export class HomepageComponent {
     }).length;
   }
 
+  visibleFilters: { [key: string]: boolean } = {};
+
+  toggleFilter(filterName: string): void {
+    this.visibleFilters[filterName] = !this.visibleFilters[filterName];
+  }
+
+  isFilterVisible(filterName: string): boolean {
+    return this.visibleFilters[filterName];
+  }
+
   updatePriceFilter() {
     const newFilterParameters = { ...this.filterParameters() };
 
