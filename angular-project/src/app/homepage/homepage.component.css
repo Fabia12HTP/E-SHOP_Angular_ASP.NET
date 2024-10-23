@@ -284,4 +284,12 @@ ul {
   .mat-mdc-slider{
       min-width: 100px;
   }
+
+  .search-input {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    z-index: 999;
+    max-width: 116px;
+  }
 }
