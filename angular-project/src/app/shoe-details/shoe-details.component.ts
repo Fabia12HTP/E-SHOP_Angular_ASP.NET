@@ -78,11 +78,11 @@ export class ShoeDetailsComponent {
     ];
   }
 
-  selectColor(color: string): void {
+  selectColor(color: any): void {
     console.log('Farebná Kombinácia:', color);
   }
   
-  colorCombination(shoeColour: string): any {
+  colorCombination(shoeColour: any): any {
     if (!shoeColour.includes("-")) {
       return shoeColour
     }

@@ -10,11 +10,7 @@
             </div>
             <div class="shoe-colors">
                 <p>FAREBNÁ KOMBINÁCIA:</p>
-                <button *ngFor="let color of colorCombination(shoesD().shoeColor)"
-                        class="color-button"
-                        [ngStyle]="{'background-color': color}"
-                        (click)="selectColor(color)">
-                </button>
+                <button class="color-button" [ngStyle]="{'background-color': colorCombination(shoesD().shoeColor)}" (click)="selectColor(colorCombination(shoesD().shoeColor))"></button>
             </div>
             <button class="add-to-cart-button" (click)="addToCart(shoesD())">PRIDAŤ DO KOŠÍKA</button>
         </div>
