@@ -77,14 +77,10 @@ export class ShoeDetailsComponent {
       ...Array(emptyStars).fill('star_outline')
     ];
   }
-
-  selectColor(color: any): void {
-    console.log('Farebná Kombinácia:', color);
-  }
   
   colorCombination(shoeColour: any): any {
     if (!shoeColour.includes("-")) {
-      return shoeColour
+      return [shoeColour]
     }
 
     else if (shoeColour.includes("-")) {
@@ -94,5 +90,9 @@ export class ShoeDetailsComponent {
     else {
       return null
     }
+  }
+
+  selectColor(color: any): void {
+    console.log('Farebná Kombinácia:', color);
   }
 }
