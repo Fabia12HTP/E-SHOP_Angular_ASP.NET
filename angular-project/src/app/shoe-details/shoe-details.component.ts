@@ -26,7 +26,7 @@ export class ShoeDetailsComponent {
 
   private destroy$ = new Subject<void>(); 
 
-  shoesD = signal<Shoes[]>([]);
+  shoesD = signal<Shoes>(undefined);
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
