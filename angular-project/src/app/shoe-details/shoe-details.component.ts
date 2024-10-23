@@ -78,13 +78,13 @@ export class ShoeDetailsComponent {
     ];
   }
   
-  colorCombination(shoeColour: any): any {
+  colorCombination(shoeColour: string): any {
     if (!shoeColour.includes("-")) {
-      return [shoeColour]
+      return shoeColour
     }
 
     else if (shoeColour.includes("-")) {
-      return shoeColour.split("-");
+      return shoeColour.split("-").toString();
     }
 
     else {
