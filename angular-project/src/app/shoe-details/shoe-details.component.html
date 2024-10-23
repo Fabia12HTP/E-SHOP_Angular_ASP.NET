@@ -12,7 +12,7 @@
                 <p>FAREBNÁ KOMBINÁCIA:</p>
                 <button *ngFor="let color of colorCombination(shoesD().shoeColor)"
                         class="color-button"
-                        [ngStyle]="{'background-color': color}"
+                        [ngStyle]="{'background': 'linear-gradient(' + color + ')'}"
                         (click)="selectColor(color)">
                 </button>
             </div>
