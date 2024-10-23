@@ -46,7 +46,7 @@ builder.Services.AddCors(options =>
         name: MyAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("https://clash-royale-4289e.web.app", "http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            policy.WithOrigins("https://clash-royale-4289e.web.app").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
         });
 });
 

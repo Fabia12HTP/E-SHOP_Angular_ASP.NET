@@ -26,7 +26,7 @@ export class ShoeDetailsComponent {
 
   private destroy$ = new Subject<void>(); 
 
-  shoesD = signal<Shoes>(undefined);
+  shoesD = signal<Shoes[]>([]);
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -80,5 +80,19 @@ export class ShoeDetailsComponent {
 
   selectColor(color: string): void {
     console.log('Farebná Kombinácia:', color);
+  }
+  
+  colorCombination(shoeColour: string): any {
+    if (!shoeColour.includes("-")) {
+      return shoeColour
+    }
+
+    else if (shoeColour.includes("-")) {
+      return shoeColour.split("-");
+    }
+
+    else {
+      return null
+    }
   }
 }
