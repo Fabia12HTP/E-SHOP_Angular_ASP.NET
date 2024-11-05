@@ -220,7 +220,18 @@ ul {
   padding: 0 15px;
 }
 
-.footer-col h4 {
+  .footer-col[_ngcontent-ng-c868883625] h4[_ngcontent-ng-c868883625]:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #e91e6300;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+  }
+
+  .footer-col h4 {
   font-size: 18px;
   color: #ffffff;
   text-transform: capitalize;
