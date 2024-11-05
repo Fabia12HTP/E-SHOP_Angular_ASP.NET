@@ -12,8 +12,8 @@
                 <p>FAREBNÁ KOMBINÁCIA:</p>
                 <button *ngFor="let color of colorCombination(shoesD().shoeColor)"
                         class="color-button"
-                        [ngStyle]="{'background': 'linear-gradient(' + color + ')'}"
-                        (click)="selectColor(color)">
+                        [ngStyle]="{'background-color': color.trim()}"
+                        (click)="selectColor(color.trim())">
                 </button>
             </div>
             <button class="add-to-cart-button" (click)="addToCart(shoesD())">PRIDAŤ DO KOŠÍKA</button>
