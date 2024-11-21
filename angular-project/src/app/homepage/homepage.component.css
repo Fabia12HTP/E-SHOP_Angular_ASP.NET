@@ -12,9 +12,9 @@
 }
 
 .filter-container {
-  position: fixed;
-  margin-top: 5px;
-  margin-right: 0px;
+  position: sticky;
+  top: 5px;
+  margin-left: 10px;
   width: 200px;
   height: fit-content;
 }
