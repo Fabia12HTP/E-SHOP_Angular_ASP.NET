@@ -17,11 +17,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
 import { AuthenticationService } from '../api-authorization/authentication.service';
 import { CartService } from '../services/cart.service';
+import { PaginatorComponent } from '../paginator/paginator.component';
+
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FilterPipe, FormsModule, MatIconModule, MatSliderModule],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FilterPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   schemas: [NO_ERRORS_SCHEMA]
@@ -66,7 +68,10 @@ export class HomepageComponent {
 
   shoes = signal<Shoes[]>([]);
 
+  //localShoe = <Shoes[]>(id === 1;) ;
+
   ngOnInit(): void {
+    //this.shoes.set(this.localShoe);
     this.shoeService.getShoeList()
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => this.shoes.set(result));
@@ -97,7 +102,7 @@ export class HomepageComponent {
       this.snackBar.open('SHOE added to cart!', '', {
         duration: 3000,
       });
-    }  
+    }
   }
 
   getSpecificFilter(filterName: string) {
@@ -167,7 +172,7 @@ export class HomepageComponent {
     }
 
     else {
-      switch (filterName) {       
+      switch (filterName) {
         case 'MENO':
           newFilterParameters.name.delete(filterValue);
           break;

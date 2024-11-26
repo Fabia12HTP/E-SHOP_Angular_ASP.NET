@@ -1,3 +1,5 @@
+<paginator-configurable-example></paginator-configurable-example>
+
 <div class="homepage" *ngIf="shoes">
 
   <input class="search-input" type="text" placeholder="Hľadaj značky..." [(ngModel)]="searchText" />
@@ -60,6 +62,7 @@
             <mat-icon class="cart" (click)="addToCart($event, shoe)">shopping_cart</mat-icon>
           </div>
         </mat-card-content>
+
         }
 
         @else {
