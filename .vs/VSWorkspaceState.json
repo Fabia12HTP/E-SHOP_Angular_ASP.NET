@@ -5,12 +5,12 @@
     "\\angular-project\\src",
     "\\angular-project\\src\\app",
     "\\angular-project\\src\\app\\homepage",
-    "\\angular-project\\src\\app\\shoe-details",
+    "\\angular-project\\src\\app\\services",
     "\\AspNetWebAPI",
     "\\AspNetWebAPI\\Services",
     "\\dataconnect",
     "\\dataconnect\\connector"
   ],
-  "SelectedNode": "\\angular-project\\src\\app\\homepage\\homepage.component.css",
+  "SelectedNode": "\\angular-project\\src\\app\\services\\cart.service.ts",
   "PreviewInSolutionExplorer": false
 }

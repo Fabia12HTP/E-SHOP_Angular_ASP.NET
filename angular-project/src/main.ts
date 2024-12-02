@@ -19,7 +19,8 @@ import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/
 import { getStorage, provideStorage } from '@angular/fire/storage';
 
 export function getBaseUrl() {
-  return 'https://R1zy.bsite.net/api';
+//  return 'https://R1zy.bsite.net/api';
+  return 'https://localhost:7186';
 }
 
 export function tokenGetter() {
@@ -36,7 +37,8 @@ bootstrapApplication(AppComponent, {
       importProvidersFrom(BrowserModule, JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
-          allowedDomains: ['https://R1zy.bsite.net/'],
+          /*          allowedDomains: ['https://R1zy.bsite.net/'],*/
+          allowedDomains: ['https://localhost:7186'],
           disallowedRoutes: [],
         },
       })),
@@ -50,7 +52,7 @@ bootstrapApplication(AppComponent, {
         { path: 'home/detail', component: ShoeDetailsComponent, data: { page: ':page' } },
         { path: 'cart', component: ShoppingCartComponent, canActivate: [authGuard] },
         { path: 'profile', component: UserProfileComponent, canActivate: [authGuard] }     
-      ]), provideFirebaseApp(() => initializeApp({"projectId":"clash-royale-4289e","appId":"1:570363405664:web:6b7f6d783f608477172a05","storageBucket":"clash-royale-4289e.appspot.com","apiKey":"AIzaSyDK2tnMGKgL_Cg4SXQ2YjSfYvR49qvWFH0","authDomain":"clash-royale-4289e.firebaseapp.com","messagingSenderId":"570363405664","measurementId":"G-LPCF9DC1G7"})), provideAnalytics(() => getAnalytics()), ScreenTrackingService, provideStorage(() => getStorage())
+      ]), /*provideFirebaseApp(() => initializeApp({"projectId":"clash-royale-4289e","appId":"1:570363405664:web:6b7f6d783f608477172a05","storageBucket":"clash-royale-4289e.appspot.com","apiKey":"AIzaSyDK2tnMGKgL_Cg4SXQ2YjSfYvR49qvWFH0","authDomain":"clash-royale-4289e.firebaseapp.com","messagingSenderId":"570363405664","measurementId":"G-LPCF9DC1G7"})), provideAnalytics(() => getAnalytics()), ScreenTrackingService, provideStorage(() => getStorage())*/
     ]
 })
   .catch(err => console.error(err));
