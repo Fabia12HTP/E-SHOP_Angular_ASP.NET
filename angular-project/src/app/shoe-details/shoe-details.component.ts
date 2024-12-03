@@ -2,7 +2,7 @@ import { Component, Input, inject, signal } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { CommonModule } from '@angular/common';
 import { Shoes } from '../interfaces/shoes';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, toArray } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthenticationService } from '../api-authorization/authentication.service';
@@ -78,18 +78,12 @@ export class ShoeDetailsComponent {
     ];
   }
   
-  colorCombination(shoeColour: string): any {
-    if (!shoeColour.includes("-")) {
-      return shoeColour
+  colorCombination(shoeColour: string): string[] {
+    if (!shoeColour) {
+      return []; // Vráti prázdne pole, ak je shoeColour prázdny
     }
 
-    else if (shoeColour.includes("-")) {
-      return shoeColour.split("-").toString();
-    }
-
-    else {
-      return null
-    }
+    return shoeColour.split("-").map(color => color.trim()); // Rozdelí farby a odstráni medzery
   }
 
   selectColor(color: any): void {
