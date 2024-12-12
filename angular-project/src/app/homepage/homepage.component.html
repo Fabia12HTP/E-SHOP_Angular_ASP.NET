@@ -36,7 +36,7 @@
   </div>
 
   <div class="allshoes">
-    <div class="shoes-container" *ngFor="let shoe of shoes() | serachPipe: searchText | filterPipe: filterParameters()">
+    <div class="shoes-container" *ngFor="let shoe of fikteredShoes() | serachPipe: searchText | filterPipe: filterParameters()">
       <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
 
         @if (shoe.discount != null) {
@@ -88,8 +88,7 @@
     </div>
   </div>
 </div>
-<paginator-configurable-example></paginator-configurable-example>
-
+<paginator-configurable-example [length]="shoes().length" (pageInfo)="setPaginatedShoes($event)"></paginator-configurable-example>
 
 <footer class="footer">
   <div class="wrapper">

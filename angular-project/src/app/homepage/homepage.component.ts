@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
 import { AuthenticationService } from '../api-authorization/authentication.service';
 import { CartService } from '../services/cart.service';
-import { PaginatorComponent } from '../paginator/paginator.component';
+import { PaginatorComponent, shoesRange } from '../paginator/paginator.component';
 
 
 @Component({
@@ -67,6 +67,8 @@ export class HomepageComponent {
   shoePrices: number[] = [];
 
   shoes = signal<Shoes[]>([]);
+  fikteredShoes = signal<Shoes[]>([]);
+
 
   //localShoe = <Shoes[]>(id === 1;) ;
 
@@ -74,7 +76,10 @@ export class HomepageComponent {
     //this.shoes.set(this.localShoe);
     this.shoeService.getShoeList()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(result => this.shoes.set(result));
+      .subscribe(result => {
+        this.shoes.set(result);
+        this.setPaginatedShoes({ pageIndex: 0, lenght: 4 });
+      });
   }
 
   ngOnDestroy(): void {
@@ -87,6 +92,14 @@ export class HomepageComponent {
     currentPage = page;
 
     this.router.navigate(['home/detail'], { queryParams: { page: currentPage } });
+  }
+
+  setPaginatedShoes(shoesRange: shoesRange) {
+    const startIndex = shoesRange.pageIndex * shoesRange.lenght;
+    const endIndex = startIndex + shoesRange.lenght;
+    debugger;
+
+    this.fikteredShoes.set(this.shoes().slice(startIndex, endIndex));
   }
 
   addToCart(event: MouseEvent, product: Shoes) {
