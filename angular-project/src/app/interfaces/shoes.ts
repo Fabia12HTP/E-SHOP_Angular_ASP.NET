@@ -1,6 +1,7 @@
 export interface Shoes {
   id: number;
   name: string;
+  shoeCount: number;
   urlPicture: string;
   description: string;
   shoeColor: string;

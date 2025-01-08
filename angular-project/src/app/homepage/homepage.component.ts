@@ -20,6 +20,7 @@ import { CartService } from '../services/cart.service';
 import { PaginatorComponent, shoesRange } from '../paginator/paginator.component';
 
 
+
 @Component({
   selector: 'app-homepage',
   standalone: true,
@@ -69,18 +70,32 @@ export class HomepageComponent {
   shoes = signal<Shoes[]>([]);
   fikteredShoes = signal<Shoes[]>([]);
 
-
   //localShoe = <Shoes[]>(id === 1;) ;
 
   ngOnInit(): void {
-    //this.shoes.set(this.localShoe);
+    //this.shoes.set(this.localShoe
     this.shoeService.getShoeList()
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         this.shoes.set(result);
+        this.shoes
         this.setPaginatedShoes({ pageIndex: 0, lenght: 4 });
       });
+    this.getShoesCount();
+  //  console.log(this.shoesCount);
   }
+  shoesCount: number;
+  getShoesCount() {
+    
+
+    this.shoeService.getShoesCount()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.shoesCount = result;
+        console.log(result);
+      })
+  }
+  
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -97,8 +112,6 @@ export class HomepageComponent {
   setPaginatedShoes(shoesRange: shoesRange) {
     const startIndex = shoesRange.pageIndex * shoesRange.lenght;
     const endIndex = startIndex + shoesRange.lenght;
-    debugger;
-
     this.fikteredShoes.set(this.shoes().slice(startIndex, endIndex));
   }
 
@@ -149,6 +162,7 @@ export class HomepageComponent {
 
     return Array.from(filteredValues)
   }
+
 
   getValue(eventHandler: any) {
     const filterName = eventHandler.target.attributes.id.nodeValue;
@@ -278,4 +292,5 @@ export class HomepageComponent {
 
     return `${value}€`;
   }
+  
 }

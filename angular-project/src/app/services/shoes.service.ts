@@ -20,4 +20,7 @@ export class ShoesService {
     const url = `${this.detailPageUrl}?page=${page}`;
     return this.http.get<Shoes>(url);
   }
+  getShoesCount() {
+    return this.http.get<number>(this.homeUrl + "/returnShoesCount")
+  }
 }

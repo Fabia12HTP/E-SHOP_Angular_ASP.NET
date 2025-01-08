@@ -4,6 +4,7 @@ using AspNetCoreAPI.DTOs;
 using AspNetCoreAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -12,8 +13,23 @@ namespace AspNetCoreAPI.Controllers
     public class HomeController : BaseController
     {
         private readonly IHomeService _homeService;
-        public HomeController(IHomeService homeService, ApplicationDbContext context) : base(context) =>
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(IHomeService homeService, ApplicationDbContext context) : base(context)
+        {
             _homeService = homeService;
+            _context = context; // Initialize _context properly
+
+        }
+
+
+
+
+        [HttpGet("returnShoesCount")]
+        public int ReturnShoesCount()
+        {
+            return _context.DbShoes.Count();
+        }
 
         [HttpGet]
         public IEnumerable<ShoesDTO> Get() => _homeService.GetShoes();

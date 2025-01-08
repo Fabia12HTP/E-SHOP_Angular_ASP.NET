@@ -5,12 +5,12 @@
     "\\angular-project\\src",
     "\\angular-project\\src\\app",
     "\\angular-project\\src\\app\\homepage",
-    "\\angular-project\\src\\app\\services",
+    "\\angular-project\\src\\app\\paginator",
     "\\AspNetWebAPI",
-    "\\AspNetWebAPI\\Services",
-    "\\dataconnect",
-    "\\dataconnect\\connector"
+    "\\AspNetWebAPI\\Data",
+    "\\AspNetWebAPI\\DTOs",
+    "\\AspNetWebAPI\\Services"
   ],
-  "SelectedNode": "\\angular-project\\src\\app\\homepage\\homepage.component.html",
+  "SelectedNode": "\\AspNetWebAPI\\Services\\IHomeServiceIMP.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -1,6 +1,7 @@
 ﻿using AspNetCoreAPI.Data;
 using AspNetCoreAPI.DTOs;
 using AspNetCoreAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,14 @@ namespace AspNetCoreAPI.Services
         {
             _context = context;
         }
+        //[HttpGet("home/returnShoesCount")]
+        //public int ReturnShoesCount()
+        //{
+        //    return _context.DbShoes.Count();
+        //}
         public IEnumerable<ShoesDTO> GetShoes()
         {
+            
             return _context.DbShoes.Select(shoe => new ShoesDTO
             {
                 Id = shoe.Id,
@@ -35,7 +42,7 @@ namespace AspNetCoreAPI.Services
                 DeliveringState = shoe.DeliveringState,
                 UrlPicture = FormatUrl(shoe.UrlPicture),
                 PriceBeforeDiscount = PriceBefore(shoe.Price, shoe.Discount, shoe.PriceBeforeDiscount),
-            }); 
+            }); ; 
         }
 
         public ShoesDTO GetShoesDetailPage(int page)

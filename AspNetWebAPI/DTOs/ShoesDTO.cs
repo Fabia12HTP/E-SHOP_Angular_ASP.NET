@@ -16,5 +16,6 @@
         public float? ShoeSize { get; set; } //ShoeDetails
         public bool? DeliveringState { get; set; }
         public bool? Favourite { get; set; }
+
     }
 }
