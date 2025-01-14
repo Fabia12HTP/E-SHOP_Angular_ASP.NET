@@ -8,7 +8,9 @@ import { debounce } from 'rxjs';
 export interface shoesRange {
   pageIndex: number,
   lenght: number,
+  pageSize: number;
 }
+
 
 @Component({
   selector: 'paginator-configurable-example',
@@ -26,9 +28,7 @@ export class PaginatorComponent  {
 
   pageInfo = output<shoesRange>();
 
-  /*length = input<number>();*/
   @Input() length: number; // decorate the property with @Input()
-
 
   //length = 12;
   pageSize = 4;
@@ -43,10 +43,9 @@ export class PaginatorComponent  {
 
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
-    //this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    this.pageInfo.emit({ pageIndex: e.pageIndex, lenght: e.length });
-    debugger;
+    this.pageInfo.emit({ pageIndex: e.pageIndex, lenght: e.length, pageSize: e.pageSize });
+    console.log(this.pageIndex);
   }
 }

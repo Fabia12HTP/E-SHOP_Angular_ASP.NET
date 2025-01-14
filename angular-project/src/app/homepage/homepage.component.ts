@@ -78,8 +78,7 @@ export class HomepageComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         this.shoes.set(result);
-        this.shoes
-        this.setPaginatedShoes({ pageIndex: 0, lenght: 4 });
+        this.setPaginatedShoes({ pageIndex: 0, pageSize: 4, lenght:this.shoesCount });
       });
     this.getShoesCount();
   //  console.log(this.shoesCount);
@@ -110,9 +109,10 @@ export class HomepageComponent {
   }
 
   setPaginatedShoes(shoesRange: shoesRange) {
-    const startIndex = shoesRange.pageIndex * shoesRange.lenght;
-    const endIndex = startIndex + shoesRange.lenght;
+    const startIndex = shoesRange.pageIndex * shoesRange.pageSize;
+    const endIndex = startIndex + shoesRange.pageSize;
     this.fikteredShoes.set(this.shoes().slice(startIndex, endIndex));
+    debugger
   }
 
   addToCart(event: MouseEvent, product: Shoes) {
