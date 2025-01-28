@@ -73,16 +73,16 @@ export class HomepageComponent {
   //localShoe = <Shoes[]>(id === 1;) ;
 
   ngOnInit(): void {
-    //this.shoes.set(this.localShoe
     this.shoeService.getShoeList()
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         this.shoes.set(result);
-        this.setPaginatedShoes({ pageIndex: 0, pageSize: 4, lenght:this.shoesCount });
+        this.updateFilteredShoes();
       });
+
     this.getShoesCount();
-  //  console.log(this.shoesCount);
   }
+
   shoesCount: number;
   getShoesCount() {
     
@@ -111,9 +111,30 @@ export class HomepageComponent {
   setPaginatedShoes(shoesRange: shoesRange) {
     const startIndex = shoesRange.pageIndex * shoesRange.pageSize;
     const endIndex = startIndex + shoesRange.pageSize;
-    this.fikteredShoes.set(this.shoes().slice(startIndex, endIndex));
-    debugger
+
+    // Use the filtered shoes instead of the full list
+    this.fikteredShoes.set(
+      this.shoes()
+        .filter((shoe) => this.applyFilters(shoe)) // Add filter logic
+        .slice(startIndex, endIndex)
+    );
   }
+
+  applyFilters(shoe: Shoes): boolean {
+    const filterParams = this.filterParameters();
+
+    return (
+      (!filterParams.price.size || filterParams.price.has(shoe.price)) &&
+      (!filterParams.name.size || filterParams.name.has(shoe.name)) &&
+      (!filterParams.brand.size || filterParams.brand.has(shoe.shoeBrand)) &&
+      (!filterParams.size.size || filterParams.size.has(shoe.shoeSize)) &&
+      (!filterParams.color.size || filterParams.color.has(shoe.shoeColor)) &&
+      (!filterParams.material.size || filterParams.material.has(shoe.shoeMaterial)) &&
+      (!filterParams.rating.size || filterParams.rating.has(shoe.rating))
+    );
+  }
+
+
 
   addToCart(event: MouseEvent, product: Shoes) {
 
@@ -161,6 +182,13 @@ export class HomepageComponent {
     }
 
     return Array.from(filteredValues)
+  }
+
+
+  updateFilteredShoes() {
+    const filtered = this.shoes().filter((shoe) => this.applyFilters(shoe));
+    this.fikteredShoes.set(filtered);
+    this.setPaginatedShoes({ pageIndex: 0, pageSize: 4, lenght: filtered.length });
   }
 
 
