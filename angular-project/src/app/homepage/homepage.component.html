@@ -1,6 +1,6 @@
 <div class="containerik">
   <section class="hero">
-    
+
     <div class="hero-text">
       <h2>Aj Števko odporúča</h2>
       <p>Explore our curated selection of sneakers and streetwear from top brands.</p>
@@ -63,30 +63,30 @@
   </div>
 
   <div class="allshoes">
-    <div class="shoes-container" *ngFor="let shoe of fikteredShoes() | serachPipe: searchText | filterPipe: filterParameters()">
+    <div class="shoes-container" *ngFor="let shoe of filteredDisplayedShoes() | serachPipe: searchText">
       <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
 
         @if (shoe.discount != null) {
-        <div class="shoe-image-content">
-          <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
-          <p class="shoe-discount">{{ shoe.discount }}%</p>
-          <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
-          <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
-          <div class="shoe-rating">
-            <mat-icon *ngFor="let star of getStars(shoe.rating)" class="star">
-              {{ star }}
-            </mat-icon>
+          <div class="shoe-image-content">
+            <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
+            <p class="shoe-discount">{{ shoe.discount }}%</p>
+            <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
+            <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
+            <div class="shoe-rating">
+              <mat-icon *ngFor="let star of getStars(shoe.rating)" class="star">
+                {{ star }}
+              </mat-icon>
+            </div>
           </div>
-        </div>
-        <mat-card-content>
-          <div class="shoe-details">
-            <p class="shoe-name">{{ shoe.name }}</p>
-            <p class="shoe-description">{{ shoe.description }}</p>
-            <p class="shoe-price">{{ shoe.price }}€</p>
-            <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
-            <mat-icon class="cart" (click)="addToCart($event, shoe)">shopping_cart</mat-icon>
-          </div>
-        </mat-card-content>
+          <mat-card-content>
+            <div class="shoe-details">
+              <p class="shoe-name">{{ shoe.name }}</p>
+              <p class="shoe-description">{{ shoe.description }}</p>
+              <p class="shoe-price">{{ shoe.price }}€</p>
+              <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
+              <mat-icon class="cart" (click)="addToCart($event, shoe)">shopping_cart</mat-icon>
+            </div>
+          </mat-card-content>
 
         }
 
@@ -115,7 +115,7 @@
     </div>
   </div>
 </div>
-<paginator-configurable-example [length]="shoesCount" (pageInfo)="setPaginatedShoes($event)"></paginator-configurable-example>
+<paginator-configurable-example [length]="shoesCount()" [pageSize]="pageSize" [(pageIndex)]="pageIndex" (pageInfo)="setPaginatedShoes()"></paginator-configurable-example>
 
 <footer class="footer">
   <div class="wrapper">

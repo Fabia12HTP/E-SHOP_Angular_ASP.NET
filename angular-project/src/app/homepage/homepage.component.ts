@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ShoesService } from '../services/shoes.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,21 +10,20 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SerachPipe } from '../homepage/pipes/serach-pipe.pipe';
 import { FormsModule } from '@angular/forms';
-import { FilterPipe } from './pipes/filter.pipe';
-import { Subject, takeUntil } from 'rxjs';
 import { Shoes } from '../interfaces/shoes';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
 import { AuthenticationService } from '../api-authorization/authentication.service';
 import { CartService } from '../services/cart.service';
-import { PaginatorComponent, shoesRange } from '../paginator/paginator.component';
+import { PaginatorComponent } from '../paginator/paginator.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FilterPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   schemas: [NO_ERRORS_SCHEMA]
@@ -37,20 +36,11 @@ export class HomepageComponent {
   snackBar = inject(MatSnackBar);
   router = inject(Router);
 
-  constructor() {
-    effect(() => {
-      console.log("Filter parameters changed:", this.filterParameters());
-    });
-  }
-
-  private destroy$ = new Subject<void>();
-
   searchText = '';
-
   filters: Set<string> = new Set(["CENA", "ZNAČKA", "MENO", "VEĽKOSŤ", "FARBA", "MATERIÁL", "HODNOTENIE"]);
   filterIds: Set<string> = new Set([]);
 
-  public filterParameters = signal<FilterParameter>({
+  filterParameters = signal<FilterParameter>({
     price: new Set<number>(),
     name: new Set<string>(),
     brand: new Set<string>(),
@@ -61,44 +51,31 @@ export class HomepageComponent {
   });
 
   value: number;
-
   priceMin: number = 0;
   priceMax: number = 500;
 
   shoePrices: number[] = [];
 
-  shoes = signal<Shoes[]>([]);
-  fikteredShoes = signal<Shoes[]>([]);
+  readonly pageSize = 4;
+  shoeRange = signal<{startIndex: number, endIndex: number}>({startIndex: 0, endIndex: this.pageSize});
+  pageIndex = signal<number>(0);
 
-  //localShoe = <Shoes[]>(id === 1;) ;
+  shoes = toSignal(this.shoeService.getShoeList());
+  filteredShoes = computed(() => this.shoes().filter((shoe) => this.applyFilters(shoe))); // reacts to changes in filterParameters
+  filteredDisplayedShoes = computed(() => this.filteredShoes().slice(this.shoeRange().startIndex, this.shoeRange().endIndex));
+  shoesCount = computed(() => this.filteredShoes().length);
 
-  ngOnInit(): void {
-    this.shoeService.getShoeList()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(result => {
-        this.shoes.set(result);
-        this.updateFilteredShoes();
-      });
-
-    this.getShoesCount();
+  constructor() {
+    effect(() => {
+      console.log("Filter parameters changed:", this.filterParameters());
+    });
   }
 
-  shoesCount: number;
-  getShoesCount() {
-    
+  setPaginatedShoes() {
+    const startIndex = this.pageIndex() * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
 
-    this.shoeService.getShoesCount()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(result => {
-        this.shoesCount = result;
-        console.log(result);
-      })
-  }
-  
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.shoeRange.set({startIndex, endIndex});
   }
 
   goToShoeDetails(page: number) {
@@ -106,18 +83,6 @@ export class HomepageComponent {
     currentPage = page;
 
     this.router.navigate(['home/detail'], { queryParams: { page: currentPage } });
-  }
-
-  setPaginatedShoes(shoesRange: shoesRange) {
-    const startIndex = shoesRange.pageIndex * shoesRange.pageSize;
-    const endIndex = startIndex + shoesRange.pageSize;
-
-    // Use the filtered shoes instead of the full list
-    this.fikteredShoes.set(
-      this.shoes()
-        .filter((shoe) => this.applyFilters(shoe)) // Add filter logic
-        .slice(startIndex, endIndex)
-    );
   }
 
   applyFilters(shoe: Shoes): boolean {
@@ -133,8 +98,6 @@ export class HomepageComponent {
       (!filterParams.rating.size || filterParams.rating.has(shoe.rating))
     );
   }
-
-
 
   addToCart(event: MouseEvent, product: Shoes) {
 
@@ -183,14 +146,6 @@ export class HomepageComponent {
 
     return Array.from(filteredValues)
   }
-
-
-  updateFilteredShoes() {
-    const filtered = this.shoes().filter((shoe) => this.applyFilters(shoe));
-    this.fikteredShoes.set(filtered);
-    this.setPaginatedShoes({ pageIndex: 0, pageSize: 4, lenght: filtered.length });
-  }
-
 
   getValue(eventHandler: any) {
     const filterName = eventHandler.target.attributes.id.nodeValue;
@@ -250,6 +205,8 @@ export class HomepageComponent {
     }
 
     this.filterParameters.set(newFilterParameters);
+    this.pageIndex.set(0);  // reset page index when filter parameters change
+    this.shoeRange.set({ startIndex: 0, endIndex: this.pageSize });  // reset shoe range when filter parameters change
   }
 
   getStars(rating: number): string[] {
@@ -320,5 +277,5 @@ export class HomepageComponent {
 
     return `${value}€`;
   }
-  
+
 }
