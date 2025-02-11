@@ -1,6 +1,6 @@
 <div class="containerik">
   <section class="hero">
-    
+
     <div class="hero-text">
       <h2>Aj Števko odporúča</h2>
       <p>Explore our curated selection of sneakers and streetwear from top brands.</p>
@@ -30,7 +30,9 @@
   <input class="search-input" type="text" placeholder="Hľadaj značky..." [(ngModel)]="searchText" />
 
   <div class="filter-container" *ngIf="filters">
+    <button mat-button color="warn" (click)="resetFilters()">Reset Filters</button>
     <div class="filter-group" *ngFor="let filterName of filters">
+
       <p (click)="toggleFilter(filterName)" class="filter-title">
         {{ filterName }}
       </p>
@@ -63,7 +65,7 @@
   </div>
 
   <div class="allshoes">
-    <div class="shoes-container" *ngFor="let shoe of fikteredShoes() | serachPipe: searchText | filterPipe: filterParameters()">
+    <div class="shoes-container" *ngFor="let shoe of filteredDisplayedShoes() | serachPipe: searchText">
       <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
 
         @if (shoe.discount != null) {
@@ -115,7 +117,7 @@
     </div>
   </div>
 </div>
-<paginator-configurable-example [length]="shoesCount" (pageInfo)="setPaginatedShoes($event)"></paginator-configurable-example>
+<paginator-configurable-example [length]="shoesCount()" [pageSize]="pageSize" [(pageIndex)]="pageIndex" (pageInfo)="setPaginatedShoes()"></paginator-configurable-example>
 
 <footer class="footer">
   <div class="wrapper">
@@ -157,4 +159,3 @@
     </div>
   </div>
 </footer>
-
