@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+
 import { FilterParameter } from '../interfaces/filtered-shoes';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -17,13 +17,14 @@ import { AuthenticationService } from '../api-authorization/authentication.servi
 import { CartService } from '../services/cart.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { CurrencyPipe } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
+  imports: [RouterModule, MatCardModule, MatButtonModule, SerachPipe, CurrencyPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   schemas: [NO_ERRORS_SCHEMA]
