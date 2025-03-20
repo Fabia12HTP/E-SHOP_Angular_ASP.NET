@@ -51,6 +51,29 @@ export class HomepageComponent {
     rating: new Set<number>()
   });
 
+  activeFilters = computed(() => {
+    const activeFilters: { [key: string]: Set<string | number> } = {};
+    const filterParams = this.filterParameters();
+
+    if (filterParams.price.size) activeFilters['CENA'] = filterParams.price;
+    if (filterParams.name.size) activeFilters['MENO'] = filterParams.name;
+    if (filterParams.brand.size) activeFilters['ZNAČKA'] = filterParams.brand;
+    if (filterParams.size.size) activeFilters['VEĽKOSŤ'] = filterParams.size;
+    if (filterParams.color.size) activeFilters['FARBA'] = filterParams.color;
+    if (filterParams.material.size) activeFilters['MATERIÁL'] = filterParams.material;
+    if (filterParams.rating.size) activeFilters['HODNOTENIE'] = filterParams.rating;
+
+    return activeFilters;
+  });
+
+  getObjectKeys(obj: { [key: string]: any }): string[] {
+    return Object.keys(obj);
+  }
+
+  setToArray(set: Set<string | number>): (string | number)[] {
+    return Array.from(set);
+  }
+
   value: number;
   priceMin: number = 0;
   priceMax: number = 500;
@@ -300,4 +323,37 @@ export class HomepageComponent {
 
     this.selectedFilters = {}; 
   }
+
+  removeFilter(filterName: string, filterValue: string | number) {
+    const newFilterParameters = { ...this.filterParameters() };
+
+    switch (filterName) {
+      case 'CENA':
+        newFilterParameters.price.delete(filterValue as number);
+        break;
+      case 'MENO':
+        newFilterParameters.name.delete(filterValue as string);
+        break;
+      case 'ZNAČKA':
+        newFilterParameters.brand.delete(filterValue as string);
+        break;
+      case 'VEĽKOSŤ':
+        newFilterParameters.size.delete(filterValue as number);
+        break;
+      case 'FARBA':
+        newFilterParameters.color.delete(filterValue as string);
+        break;
+      case 'MATERIÁL':
+        newFilterParameters.material.delete(filterValue as string);
+        break;
+      case 'HODNOTENIE':
+        newFilterParameters.rating.delete(filterValue as number);
+        break;
+    }
+
+    this.filterParameters.set(newFilterParameters);
+    this.pageIndex.set(0);  // reset page index when filter parameters change
+    this.shoeRange.set({ startIndex: 0, endIndex: this.pageSize });  // reset shoe range when filter parameters change
+  }
+
 }

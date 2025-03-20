@@ -32,6 +32,20 @@
     @if (filters) {
     <div class="filter-container">
       <button mat-button color="warn" (click)="resetFilters()">Reset Filters</button>
+      <div class="active-filters">
+        <h3>Active Filters:</h3>
+        @for (filterName of getObjectKeys(activeFilters()); track filterName) {
+        <div class="active-filter-group">
+          <strong>{{ filterName }}:</strong>
+          @for (filterValue of setToArray(activeFilters()[filterName]); track filterValue) {
+          <span class="active-filter-value">
+            {{ filterValue }}
+            <button (click)="removeFilter(filterName, filterValue)">×</button>
+          </span>
+          }
+        </div>
+        }
+      </div>
     <!--[(ngModel)]="selectedFilters[filterValue]" (change)="getValue($event)"   treba to dať ku každému importu mam pocit-->
       @for (filterName of filters; track filterName) {
       <div class="filter-group">
