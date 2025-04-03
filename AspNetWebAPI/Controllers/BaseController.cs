@@ -1,11 +1,15 @@
 using AspNetCoreAPI.Data;
+using AspNetCoreAPI.DTOs;
 using AspNetCoreAPI.Models;
+using AspNetCoreAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace AspNetCoreAPI.Controllers
 {
     [ApiController]
+    //[Authorize]
     public class BaseController : ControllerBase
     {
         protected readonly ApplicationDbContext Context;

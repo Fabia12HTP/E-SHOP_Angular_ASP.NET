@@ -22,9 +22,6 @@ namespace AspNetCoreAPI.Controllers
 
         }
 
-
-
-
         [HttpGet("returnShoesCount")]
         public int ReturnShoesCount()
         {

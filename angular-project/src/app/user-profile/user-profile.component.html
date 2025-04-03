@@ -1,1 +1,8 @@
-<p>user-profile works!</p>
+<div *ngIf="userP()">
+  <p>{{userP().userName}}</p>
+  <p>{{userP().email}}</p>
+  <p>{{userP().id}}</p>
+  <p>{{userP().phoneNumber}}</p>
+</div>
+
+  

@@ -1,5 +1,6 @@
 ﻿using AspNetCoreAPI.DTOs;
 using AspNetCoreAPI.Models;
+using AspNetCoreAPI.Services.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,5 +16,6 @@ namespace AspNetCoreAPI.Data
         }
 
         public DbSet<Shoes> DbShoes { get; set; }
+        public DbSet<User> DbUserProfile { get; set; }
     }
 }
