@@ -17,7 +17,7 @@ import { AuthenticationService } from '../api-authorization/authentication.servi
 import { CartService } from '../services/cart.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 
 
 
@@ -171,14 +171,6 @@ export class HomepageComponent {
 
     return Array.from(filteredValues)
   }
-
-
-  updateFilteredShoes() {
-    const filtered = this.shoes().filter((shoe) => this.applyFilters(shoe));
-    this.fikteredShoes.set(filtered);
-    this.setPaginatedShoes({ pageIndex: 0, pageSize: 4, lenght: filtered.length });
-  }
-
 
   getValue(eventHandler: any) {
     const filterName = eventHandler.target.attributes.id.nodeValue;
