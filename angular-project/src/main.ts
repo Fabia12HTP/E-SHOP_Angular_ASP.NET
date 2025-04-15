@@ -51,7 +51,7 @@ bootstrapApplication(AppComponent, {
         { path: 'register', component: RegistrationComponent },
         { path: 'home/detail', component: ShoeDetailsComponent, data: { page: ':page' } },
         { path: 'cart', component: ShoppingCartComponent, canActivate: [authGuard] },
-        { path: 'profile', component: UserProfileComponent, canActivate: [authGuard] }     
+        { path: 'userprofile', component: UserProfileComponent, canActivate: [authGuard] }     
       ]), /*provideFirebaseApp(() => initializeApp({"projectId":"clash-royale-4289e","appId":"1:570363405664:web:6b7f6d783f608477172a05","storageBucket":"clash-royale-4289e.appspot.com","apiKey":"AIzaSyDK2tnMGKgL_Cg4SXQ2YjSfYvR49qvWFH0","authDomain":"clash-royale-4289e.firebaseapp.com","messagingSenderId":"570363405664","measurementId":"G-LPCF9DC1G7"})), provideAnalytics(() => getAnalytics()), ScreenTrackingService, provideStorage(() => getStorage())*/
     ]
 })

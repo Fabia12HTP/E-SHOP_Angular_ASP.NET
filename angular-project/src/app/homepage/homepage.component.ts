@@ -24,7 +24,7 @@ import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [RouterModule, MatCardModule, MatButtonModule, SerachPipe, CurrencyPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, CurrencyPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   schemas: [NO_ERRORS_SCHEMA]
@@ -172,6 +172,14 @@ export class HomepageComponent {
     return Array.from(filteredValues)
   }
 
+
+  updateFilteredShoes() {
+    const filtered = this.shoes().filter((shoe) => this.applyFilters(shoe));
+    this.fikteredShoes.set(filtered);
+    this.setPaginatedShoes({ pageIndex: 0, pageSize: 4, lenght: filtered.length });
+  }
+
+
   getValue(eventHandler: any) {
     const filterName = eventHandler.target.attributes.id.nodeValue;
     let filterValue = eventHandler.target.value;
@@ -295,14 +303,6 @@ export class HomepageComponent {
     console.log(this.priceMax);
   }
 
-  formatLabel(value: number): string {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + 'k';
-    }
-
-    return `${value}€`;
-  }
-
 
   selectedFilters: { [key: string]: boolean } = {};
 
@@ -356,4 +356,12 @@ export class HomepageComponent {
     this.shoeRange.set({ startIndex: 0, endIndex: this.pageSize });  // reset shoe range when filter parameters change
   }
 
+  formatLabel(value: number): string {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return `${value}€`;
+  }
+  
 }
