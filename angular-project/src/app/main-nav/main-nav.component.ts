@@ -5,7 +5,7 @@ import { MatButton } from '@angular/material/button';
 import { AuthenticationService } from '../api-authorization/authentication.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-main-nav',
@@ -14,10 +14,9 @@ import { NgIf } from '@angular/common';
     RouterLink,
     MatToolbar,
     MatButton,
-    NgIf,
     MatIconModule,
     MatButtonModule
-  ],
+],
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.css'
 })

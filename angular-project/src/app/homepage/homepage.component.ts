@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+
 import { FilterParameter } from '../interfaces/filtered-shoes';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -17,13 +17,14 @@ import { AuthenticationService } from '../api-authorization/authentication.servi
 import { CartService } from '../services/cart.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { CurrencyPipe } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, SerachPipe, CurrencyPipe, FormsModule, MatIconModule, MatSliderModule, PaginatorComponent],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   schemas: [NO_ERRORS_SCHEMA]
@@ -50,6 +51,29 @@ export class HomepageComponent {
     rating: new Set<number>()
   });
 
+  activeFilters = computed(() => {
+    const activeFilters: { [key: string]: Set<string | number> } = {};
+    const filterParams = this.filterParameters();
+
+    if (filterParams.price.size) activeFilters['CENA'] = filterParams.price;
+    if (filterParams.name.size) activeFilters['MENO'] = filterParams.name;
+    if (filterParams.brand.size) activeFilters['ZNAČKA'] = filterParams.brand;
+    if (filterParams.size.size) activeFilters['VEĽKOSŤ'] = filterParams.size;
+    if (filterParams.color.size) activeFilters['FARBA'] = filterParams.color;
+    if (filterParams.material.size) activeFilters['MATERIÁL'] = filterParams.material;
+    if (filterParams.rating.size) activeFilters['HODNOTENIE'] = filterParams.rating;
+
+    return activeFilters;
+  });
+
+  getObjectKeys(obj: { [key: string]: any }): string[] {
+    return Object.keys(obj);
+  }
+
+  setToArray(set: Set<string | number>): (string | number)[] {
+    return Array.from(set);
+  }
+
   value: number;
   priceMin: number = 0;
   priceMax: number = 500;
@@ -57,8 +81,9 @@ export class HomepageComponent {
   shoePrices: number[] = [];
 
   readonly pageSize = 4;
-  shoeRange = signal<{startIndex: number, endIndex: number}>({startIndex: 0, endIndex: this.pageSize});
+  shoeRange = signal<{ startIndex: number, endIndex: number }>({ startIndex: 0, endIndex: this.pageSize });
   pageIndex = signal<number>(0);
+
 
   shoes = toSignal(this.shoeService.getShoeList());
   filteredShoes = computed(() => this.shoes().filter((shoe) => this.applyFilters(shoe))); // reacts to changes in filterParameters
@@ -75,7 +100,7 @@ export class HomepageComponent {
     const startIndex = this.pageIndex() * this.pageSize;
     const endIndex = startIndex + this.pageSize;
 
-    this.shoeRange.set({startIndex, endIndex});
+    this.shoeRange.set({ startIndex, endIndex });
   }
 
   goToShoeDetails(page: number) {
@@ -146,6 +171,14 @@ export class HomepageComponent {
 
     return Array.from(filteredValues)
   }
+
+
+  updateFilteredShoes() {
+    const filtered = this.shoes().filter((shoe) => this.applyFilters(shoe));
+    this.fikteredShoes.set(filtered);
+    this.setPaginatedShoes({ pageIndex: 0, pageSize: 4, lenght: filtered.length });
+  }
+
 
   getValue(eventHandler: any) {
     const filterName = eventHandler.target.attributes.id.nodeValue;
@@ -270,6 +303,59 @@ export class HomepageComponent {
     console.log(this.priceMax);
   }
 
+
+  selectedFilters: { [key: string]: boolean } = {};
+
+  resetFilters() {
+    this.filterParameters.set({
+      price: new Set<number>(),
+      name: new Set<string>(),
+      brand: new Set<string>(),
+      size: new Set<number>(),
+      color: new Set<string>(),
+      material: new Set<string>(),
+      rating: new Set<number>()
+    });
+
+    this.searchText = '';
+    this.pageIndex.set(0);
+    this.shoeRange.set({ startIndex: 0, endIndex: this.pageSize });
+
+    this.selectedFilters = {}; 
+  }
+
+  removeFilter(filterName: string, filterValue: string | number) {
+    const newFilterParameters = { ...this.filterParameters() };
+
+    switch (filterName) {
+      case 'CENA':
+        newFilterParameters.price.delete(filterValue as number);
+        break;
+      case 'MENO':
+        newFilterParameters.name.delete(filterValue as string);
+        break;
+      case 'ZNAČKA':
+        newFilterParameters.brand.delete(filterValue as string);
+        break;
+      case 'VEĽKOSŤ':
+        newFilterParameters.size.delete(filterValue as number);
+        break;
+      case 'FARBA':
+        newFilterParameters.color.delete(filterValue as string);
+        break;
+      case 'MATERIÁL':
+        newFilterParameters.material.delete(filterValue as string);
+        break;
+      case 'HODNOTENIE':
+        newFilterParameters.rating.delete(filterValue as number);
+        break;
+    }
+
+    this.filterParameters.set(newFilterParameters);
+    this.pageIndex.set(0);  // reset page index when filter parameters change
+    this.shoeRange.set({ startIndex: 0, endIndex: this.pageSize });  // reset shoe range when filter parameters change
+  }
+
   formatLabel(value: number): string {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';
@@ -277,5 +363,5 @@ export class HomepageComponent {
 
     return `${value}€`;
   }
-
+  
 }

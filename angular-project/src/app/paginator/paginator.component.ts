@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
     MatPaginatorModule,
   ],
 })
-export class PaginatorComponent  {
+export class PaginatorComponent {
 
   pageInfo = output<void>();
 

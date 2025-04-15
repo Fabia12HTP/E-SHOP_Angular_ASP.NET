@@ -8,153 +8,188 @@
     <img src="https://www.footshop.cz/blog/wp-content/uploads/2020/01/vivi2-1.jpg" alt="Intro Image" />
   </section>
 
-  <!--<section class="features">
-    <h2>Why Choose Footshop?</h2>
-    <div class="feature">
-      <h3>Wide Selection</h3>
-      <p>From iconic models to exclusive collections, we have it all.</p>
-    </div>
-    <div class="feature">
-      <h3>Quality & Style</h3>
-      <p>Our products are carefully selected to ensure the highest quality and unique style.</p>
-    </div>
-    <div class="feature">
-      <h3>Fast Delivery</h3>
-      <p>Your orders are processed quickly so you can enjoy your new items sooner.</p>
-    </div>
-  </section>-->
-</div>
-
-<div class="homepage" *ngIf="shoes">
-
-  <input class="search-input" type="text" placeholder="Hľadaj značky..." [(ngModel)]="searchText" />
-
-  <div class="filter-container" *ngIf="filters">
-    <div class="filter-group" *ngFor="let filterName of filters">
-      <p (click)="toggleFilter(filterName)" class="filter-title">
-        {{ filterName }}
-      </p>
-      <div *ngIf="isFilterVisible(filterName)">
-        <div *ngIf="filterName === 'CENA'">
-          <mat-slider class="example-margin"
-                      [max]="priceMax"
-                      [min]="priceMin"
-                      step="1"
-                      showTickMarks discrete [displayWith]="formatLabel">
-            <input matSliderThumb [(ngModel)]="value" (change)="updatePriceFilter()" #slider>
-          </mat-slider>
-        </div>
-        <div *ngIf="filterName !== 'CENA'">
-          <div class="checkboxes" *ngFor="let filterValue of getSpecificFilter(filterName)">
-            <input type="checkbox" id="{{ filterName }}" value="{{ filterValue }}"
-                   (change)="getValue($event)">
-            <label for="{{ filterValue }}">
-              {{
-             filterName === 'VEĽKOSŤ' ? (filterValue + ' EUR') :
-             filterName === 'HODNOTENIE' ? (filterValue + ' ★') :
-             filterValue
-              }}
-              <span class="filter-count">[{{ getFilterCount(filterName, filterValue) }}]</span>
-            </label><br>
-          </div>
-        </div>
+    <!--<section class="features">
+      <h2>Why Choose Footshop?</h2>
+      <div class="feature">
+        <h3>Wide Selection</h3>
+        <p>From iconic models to exclusive collections, we have it all.</p>
       </div>
-    </div>
+      <div class="feature">
+        <h3>Quality & Style</h3>
+        <p>Our products are carefully selected to ensure the highest quality and unique style.</p>
+      </div>
+      <div class="feature">
+        <h3>Fast Delivery</h3>
+        <p>Your orders are processed quickly so you can enjoy your new items sooner.</p>
+      </div>
+    </section>-->
   </div>
 
-  <div class="allshoes">
-    <div class="shoes-container" *ngFor="let shoe of filteredDisplayedShoes() | serachPipe: searchText">
-      <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
+  @if (shoes){ <div class="homepage">
 
-        @if (shoe.discount != null) {
+
+
+    @if (filters) {
+    <div class="filter-container">
+      <button mat-button color="warn" (click)="resetFilters()">Reset Filters</button>
+      <div class="active-filters">
+        <h3>Active Filters:</h3>
+        @for (filterName of getObjectKeys(activeFilters()); track filterName) {
+        <div class="active-filter-group">
+          <strong>{{ filterName }}:</strong>
+          @for (filterValue of setToArray(activeFilters()[filterName]); track filterValue) {
+          <span class="active-filter-value">
+            {{ filterValue }}
+            <button (click)="removeFilter(filterName, filterValue)">×</button>
+          </span>
+          }
+        </div>
+        }
+      </div>
+    <!--[(ngModel)]="selectedFilters[filterValue]" (change)="getValue($event)"   treba to dať ku každému importu mam pocit-->
+      @for (filterName of filters; track filterName) {
+      <div class="filter-group">
+        <p (click)="toggleFilter(filterName)" class="filter-title">
+          {{ filterName }}
+        </p>
+        @if (isFilterVisible(filterName)) {
+        <div>
+          @if (filterName === 'CENA') {
+          <div>
+            <mat-slider class="example-margin"
+                        [max]="priceMax"
+                        [min]="priceMin"
+                        step="1"
+                        showTickMarks discrete [displayWith]="formatLabel">
+              <input matSliderThumb [(ngModel)]="value" (change)="updatePriceFilter()" #slider>
+            </mat-slider>
+          </div>
+          }
+          @if (filterName !== 'CENA') {
+          <div>
+            @for (filterValue of getSpecificFilter(filterName); track filterValue) {
+            <div class="checkboxes">
+              <input type="checkbox" id="{{ filterName }}" value="{{ filterValue }}"
+                   (change)="getValue($event)">
+              <label for="{{ filterValue }}">
+                {{
+                            filterName === 'VEĽKOSŤ' ? (filterValue + ' EUR') :
+                            filterName === 'HODNOTENIE' ? (filterValue + ' ★') :
+                            filterValue
+                }}
+                <span class="filter-count">[{{ getFilterCount(filterName, filterValue) }}]</span>
+              </label><br>
+            </div>
+            }
+          </div>
+          }
+        </div>
+        }
+      </div>
+      }
+    </div>
+    }
+
+    <div class="allshoes">
+      @for (shoe of filteredDisplayedShoes() | serachPipe: searchText; track shoe) {
+      <div class="shoes-container">
+        <mat-card class="shoes-frame" (click)="goToShoeDetails(shoe.id)">
+          @if (shoe.discount != null) {
           <div class="shoe-image-content">
             <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
             <p class="shoe-discount">{{ shoe.discount }}%</p>
             <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
             <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
             <div class="shoe-rating">
-              <mat-icon *ngFor="let star of getStars(shoe.rating)" class="star">
+              @for (star of getStars(shoe.rating); track star) {
+              <mat-icon class="star">
                 {{ star }}
               </mat-icon>
+              }
             </div>
           </div>
           <mat-card-content>
             <div class="shoe-details">
               <p class="shoe-name">{{ shoe.name }}</p>
               <p class="shoe-description">{{ shoe.description }}</p>
-              <p class="shoe-price">{{ shoe.price }}€</p>
-              <p class="shoe-price-before">{{ shoe.priceBeforeDiscount }}€</p>
+              <p class="shoe-price">{{ shoe.price | currency : 'EUR'}}€</p>
+              <p class="shoe-price-before">{{ shoe.priceBeforeDiscount | currency : 'EUR'}}</p>
               <mat-icon class="cart" (click)="addToCart($event, shoe)">shopping_cart</mat-icon>
             </div>
           </mat-card-content>
-
-        }
-
-        @else {
-        <div class="shoe-image-content">
-          <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
-          <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
-          <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
-          <div class="shoe-rating">
-            <mat-icon *ngFor="let star of getStars(shoe.rating)" class="star">
-              {{ star }}
-            </mat-icon>
+          }
+          @else {
+          <div class="shoe-image-content">
+            <img mat-card-image [src]="shoe.urlPicture" alt="Shoe.Photo">
+            <p class="shoe-deliveringstate">{{ shoe.deliveringState ? 'SKLADOM' : 'NIE JE K DISPOZÍCIÍ' }}</p>
+            <p class="shoe-favuorite">{{ shoe.favourite }}%</p>
+            <div class="shoe-rating">
+              @for (star of getStars(shoe.rating); track star) {
+              <mat-icon class="star">
+                {{ star }}
+              </mat-icon>
+              }
+            </div>
           </div>
-        </div>
-        <mat-card-content>
-          <div class="shoe-details">
-            <p class="shoe-name">{{ shoe.name }}</p>
-            <p class="shoe-description">{{ shoe.description }}</p>
-            <p class="shoe-price">{{ shoe.price }}€</p>
-            <mat-icon class="cart" (click)="addToCart($event, shoe)">shopping_cart</mat-icon>
-          </div>
-        </mat-card-content>
-        }
+          <mat-card-content>
+            <div class="shoe-details">
+              <p class="shoe-name">{{ shoe.name }}</p>
+              <p class="shoe-description">{{ shoe.description }}</p>
+              <p class="shoe-price">{{ shoe.price | currency : 'EUR'}} </p>
+              <mat-icon class="cart" (click)="addToCart($event, shoe)">shopping_cart</mat-icon>
+            </div>
+          </mat-card-content>
+          }
 
-      </mat-card>
-    </div>
-  </div>
-</div>
-<paginator-configurable-example [length]="shoesCount()" [pageSize]="pageSize" [(pageIndex)]="pageIndex" (pageInfo)="setPaginatedShoes()"></paginator-configurable-example>
-
-<footer class="footer">
-  <div class="wrapper">
-    <div class="container">
-      <div class="row">
-
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Our services</a></li>
-            <li><a href="#">Privacy policy</a></li>
-            <li><a href="#">Affiliate program</a></li>
-
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Get help</h4>
-          <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Shipping</a></li>
-            <li><a href="#">Returns</a></li>
-
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Contact us</h4>
-          <ul>
-            <li><a href="#">Budošová, Stará Bystrica</a></li>
-            <li><a href="#">Bytovka za zástavkov</a></li>
-            <li><a href="#">Tel.: 0949 851 687</a></li>
-
-          </ul>
-        </div>
+        </mat-card>
 
       </div>
+
+      }
+
     </div>
   </div>
-</footer>
 
+  }
+  <paginator-configurable-example [length]="shoesCount()" [pageSize]="pageSize" [(pageIndex)]="pageIndex" (pageInfo)="setPaginatedShoes()"></paginator-configurable-example>
+
+  <footer class="footer">
+    <div class="wrapper">
+      <div class="container">
+        <div class="row">
+
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Our services</a></li>
+              <li><a href="#">Privacy policy</a></li>
+              <li><a href="#">Affiliate program</a></li>
+
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Get help</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Shipping</a></li>
+              <li><a href="#">Returns</a></li>
+
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Contact us</h4>
+            <ul>
+              <li><a href="#">Budošová, Stará Bystrica</a></li>
+              <li><a href="#">Bytovka za zástavkov</a></li>
+              <li><a href="#">Tel.: 0949 851 687</a></li>
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CartService } from '../services/cart.service';
-import { CommonModule } from '@angular/common';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-shopping-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './shopping-cart.component.html',
   styleUrl: './shopping-cart.component.css'
 })

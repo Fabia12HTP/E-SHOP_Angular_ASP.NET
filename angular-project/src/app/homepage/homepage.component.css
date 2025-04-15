@@ -13,27 +13,56 @@
 
 .filter-container {
   position: sticky;
-  top: 5px;
-  margin-left: 10px;
-  width: 200px;
-  height: fit-content;
+  top: 10px;
+  margin-left: 15px;
+  width: 100px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.filter-group p {
-  text-align: center;
-  margin-top: 10px;
+.filter-title {
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
 }
 
-.checkboxes {
-  padding-left: 10px;
-  margin-bottom: 2px;
-  width: 150px;
-  margin-top: 2px;
+.filter-content {
+  padding: 10px 0;
+}
+
+.price-slider {
+  padding: 10px;
+}
+
+.checkbox-group {
+  padding: 10px 5px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
 }
 
 .filter-count {
-  font-size: 11px; 
-  color: #A9A9A9; 
+  font-size: 12px;
+  color: #A9A9A9;
 }
 
 mat-slider {
@@ -45,9 +74,8 @@ mat-slider {
   display: flex;
   overflow-y: auto;
   flex-wrap: wrap;
-/*  height: calc(100vh - 50px);*/
+  /*  height: calc(100vh - 50px);*/
   margin-left: 40px;
- 
 }
 
 .shoes-container {
@@ -70,12 +98,12 @@ mat-slider {
   overflow: hidden;
 }
 
-.shoe-image-content img {
-  border-radius: 15px 15px 0 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .shoe-image-content img {
+    border-radius: 15px 15px 0 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
 .shoe-discount {
   width: 35px;
@@ -148,38 +176,38 @@ mat-slider {
   color: #011627;
 }
 
-.shoe-price-before:after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 1.5px;
-  background-color: #011627;
-  left: 0;
-  top: 50%;
-  transform: rotate(-6deg);
-}
+  .shoe-price-before:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1.5px;
+    background-color: #011627;
+    left: 0;
+    top: 50%;
+    transform: rotate(-6deg);
+  }
 
 .shoe-rating {
   position: absolute;
-  top: 10px; 
-  right: 10px; 
+  top: 10px;
+  right: 10px;
   display: flex;
   align-items: center;
 }
 
 .star {
   color: gold;
-  font-size: 20px; 
+  font-size: 20px;
   margin-right: 2px;
 }
 
 .cart {
   position: absolute;
-  bottom: 10px; 
-  right: 10px; 
-  font-size: 24px; 
-  color: #000; 
-  cursor: pointer; 
+  bottom: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #000;
+  cursor: pointer;
 }
 
 html, body {
@@ -252,37 +280,37 @@ ul {
     margin-bottom: 30px;
   }
 
-.footer-col h4::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  background-color: #e91e63;
-  height: 2px;
-  box-sizing: border-box;
-  width: 50px;
-}
+    .footer-col h4::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      background-color: #e91e63;
+      height: 2px;
+      box-sizing: border-box;
+      width: 50px;
+    }
 
-.footer-col ul li:not(:last-child) {
-  margin-bottom: 10px;
-}
+  .footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+  }
 
-.footer-col ul li a {
-  font-size: 16px;
-  text-transform: capitalize;
-  color: #bbbbbb;
-  text-decoration: none;
-  font-weight: 300;
-  display: block;
-  transition: all 0.3s ease;
-}
+  .footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #bbbbbb;
+    text-decoration: none;
+    font-weight: 300;
+    display: block;
+    transition: all 0.3s ease;
+  }
 
-.footer-col ul li a:hover {
-  color: #ffffff;
-  padding-left: 8px;
-}
+    .footer-col ul li a:hover {
+      color: #ffffff;
+      padding-left: 8px;
+    }
 
-@media (max-width: 426px){
+@media (max-width: 426px) {
   .shoes-frame {
     background-color: white;
     border-radius: 15px;
@@ -306,8 +334,8 @@ ul {
     height: fit-content;
   }
 
-  .mat-mdc-slider{
-      min-width: 100px;
+  .mat-mdc-slider {
+    min-width: 100px;
   }
 
   .search-input {
@@ -359,7 +387,7 @@ h1 {
   .hero-text p {
     font-size: 1.2em;
   }
-  
+
 
 .features {
   margin: 20px 0;
@@ -374,3 +402,39 @@ h1 {
   margin: 20px 0;
   text-align: center;
 }
+
+.resetButton {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  padding-left: 0px;
+  padding-bottom: 15px;
+}
+
+.active-filters {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.active-filter-group {
+  margin-bottom: 10px;
+}
+
+.active-filter-value {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+  .active-filter-value button {
+    margin-left: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ff0000;
+  }
