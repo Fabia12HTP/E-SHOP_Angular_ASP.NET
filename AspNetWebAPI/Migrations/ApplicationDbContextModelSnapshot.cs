@@ -71,7 +71,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DbShoes");
+                    b.ToTable("DbShoes", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.User", b =>
