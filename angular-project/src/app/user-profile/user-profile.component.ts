@@ -13,16 +13,29 @@ import { CommonModule } from '@angular/common';
 })
 export class UserProfileComponent  {
 
-  userProfile = inject(UserprofileService);
+  private profileService = inject(UserprofileService);
+  private destroy$ = new Subject<void>();
 
-  userP = signal<User>(undefined);
-  private destroy$ = new Subject<void>(); 
+  user = signal<User | undefined>(undefined);
 
-  ngOnInit() {
-    this.userProfile.getUserInfo()
+  ngOnInit(): void {
+    this.profileService.getUserInfo()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(result => this.userP.set(result));
+      .subscribe(profile => this.user.set(profile));
+  }
 
-      //console.log(this.userP);
-  };
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+    this.profileService.uploadProfilePicture(file).subscribe({
+      next: (res) => {
+        console.log('Uploaded successfully', res);
+        // reload profile
+        this.profileService.getUserInfo().subscribe(profile => this.user.set(profile));
+      },
+      error: (err) => console.error('Upload error', err),
+    });
+  }
 }

@@ -1,8 +1,7 @@
-<div *ngIf="userP()">
-  <p>{{userP().userName}}</p>
-  <p>{{userP().email}}</p>
-  <p>{{userP().id}}</p>
-  <p>{{userP().phoneNumber}}</p>
+<div *ngIf="user() as u">
+  <h2>{{ u.displayName || 'Meno nevyplnené' }}</h2>
+  <p *ngIf="u.bio">{{ u.bio }}</p>
+  <img *ngIf="u.profilePicturePath" [src]="u.profilePicturePath" width="200" />
 </div>
 
-  
+<input type="file" (change)="onFileSelected($event)" />
