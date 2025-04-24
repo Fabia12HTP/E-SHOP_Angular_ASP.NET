@@ -1,7 +1,27 @@
-<div *ngIf="user() as u">
-  <h2>{{ u.displayName || 'Meno nevyplnené' }}</h2>
-  <p *ngIf="u.bio">{{ u.bio }}</p>
-  <img *ngIf="u.profilePicturePath" [src]="u.profilePicturePath" width="200" />
+<div class="profile-card" *ngIf="user() as u">
+  <div class="profile-header">
+    <img *ngIf="u.profilePicturePath; else noImage"
+         [src]="u.profilePicturePath"
+         alt="Profile Picture"
+         class="profile-img" />
+    <ng-template #noImage>
+      <div class="profile-img placeholder">?</div>
+    </ng-template>
+
+    <div class="profile-info">
+      <h2>{{ u.displayName || 'Meno nevyplnené' }}</h2>
+      <p *ngIf="u.bio">{{ u.bio }}</p>
+      <p class="username">{{ u.username }}</p>
+    </div>
+  </div>
+
+  <label class="upload-btn">
+    [NAHRAŤ PROFILOVÝ OBRÁZOK]
+    <input type="file" (change)="onFileSelected($event)" hidden />
+  </label>
 </div>
 
-<input type="file" (change)="onFileSelected($event)" />
+else
+<div>
+  <p>NIE SI PRIHLÁSENÝ</p>
+</div>

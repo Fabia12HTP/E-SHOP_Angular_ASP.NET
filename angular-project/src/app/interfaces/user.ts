@@ -1,6 +1,9 @@
 export interface User {
   id: string;
-  displayName?: string;
   bio?: string;
+  email: string;
+  username: string;
+  displayName?: string;
+  twoFactorEnabled: boolean;
   profilePicturePath?: string;
 }

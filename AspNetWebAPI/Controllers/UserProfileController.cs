@@ -16,29 +16,36 @@ namespace AspNetCoreAPI.Controllers
     
     public class UserProfileController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
+        protected readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _environment;
 
-        public UserProfileController(UserManager<User> userManager,IWebHostEnvironment environment)
+        public UserProfileController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
-            _userManager = userManager;
+            _context = context;
             _environment = environment;
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetUserProfile()
+        public async Task<IActionResult> GetUserProfileById(string id)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var username = User.FindFirstValue(ClaimTypes.Name);
 
-            if (user == null) {
-                return NotFound();
-            }
+            if (string.IsNullOrEmpty(username))
+                return BadRequest($"You are not LOGGED IN! {username}");
+
+            var user = await _context.Users.FindAsync(username);
+
+            if (user == null)
+                return NotFound("User not found");
 
             return Ok(new
             {
                 user.Id,
-                user.DisplayName,
                 user.Bio,
+                user.Email,
+                user.UserName,
+                user.DisplayName,
+                user.TwoFactorEnabled,
                 user.ProfilePicturePath
             });
         }
@@ -48,18 +55,19 @@ namespace AspNetCoreAPI.Controllers
         [RequestSizeLimit(5 * 1024 * 1024)]
         public async Task<IActionResult> UploadProfilePicture(IFormFile file)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var username = User.FindFirstValue(ClaimTypes.Name);
 
-            if (user == null || file == null || file.Length == 0) {
-                return BadRequest("Invalid REUEST!");
-            }
-                
+            if (string.IsNullOrEmpty(username))
+                return BadRequest($"You are not LOGGED IN! {username}");
+
+            var user = await _context.Users.FindAsync(username);
+
+            if (user == null || file == null || file.Length == 0)
+                return BadRequest("Invalid request!");
+
             var uploadsRoot = Path.Combine(_environment.WebRootPath, "uploads", "users");
+            Directory.CreateDirectory(uploadsRoot);
 
-            // vytvor priečinok ak neexistuje
-            Directory.CreateDirectory(uploadsRoot); 
-
-            // Zmaž starý súbor ak existuje
             if (!string.IsNullOrEmpty(user.ProfilePicturePath))
             {
                 var oldPath = Path.Combine(_environment.WebRootPath, user.ProfilePicturePath.TrimStart('/'));
@@ -67,7 +75,6 @@ namespace AspNetCoreAPI.Controllers
                     System.IO.File.Delete(oldPath);
             }
 
-            // Generuj nový názov súboru (napr. podľa user ID)
             var ext = Path.GetExtension(file.FileName);
             var newFileName = $"{user.Id}{ext}";
             var filePath = Path.Combine(uploadsRoot, newFileName);
@@ -77,9 +84,9 @@ namespace AspNetCoreAPI.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            // Ulož cestu do DB
             user.ProfilePicturePath = $"/uploads/users/{newFileName}";
-            await _userManager.UpdateAsync(user);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
 
             return Ok(new { path = user.ProfilePicturePath });
         }

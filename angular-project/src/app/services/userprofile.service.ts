@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class UserprofileService {
 
-  private userProfileUrl = this.baseUrl + "/UserProfile";
+  private userProfileUrl = this.baseUrl + "/userprofile";
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   getUserInfo(): Observable<User> {
