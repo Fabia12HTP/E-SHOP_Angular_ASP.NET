@@ -2,15 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\angular-project",
+    "\\angular-project\\.angular",
     "\\angular-project\\src",
     "\\angular-project\\src\\app",
     "\\angular-project\\src\\app\\homepage",
-    "\\angular-project\\src\\app\\interfaces",
-    "\\angular-project\\src\\app\\main-nav",
-    "\\AspNetWebAPI",
-    "\\AspNetWebAPI\\Controllers",
-    "\\AspNetWebAPI\\Services"
+    "\\angular-project\\src\\app\\user-profile"
   ],
-  "SelectedNode": "\\angular-project\\src\\main.ts",
+  "SelectedNode": "\\angular-project\\src\\app",
   "PreviewInSolutionExplorer": false
 }

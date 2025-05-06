@@ -11,7 +11,7 @@
     <div class="profile-info">
       <h2>{{ u.displayName || 'Meno nevyplnené' }}</h2>
       <p *ngIf="u.bio">{{ u.bio }}</p>
-      <p class="username">{{ u.username }}</p>
+      <p class="username">{{ u.email }}</p>
     </div>
   </div>
 
@@ -19,9 +19,4 @@
     [NAHRAŤ PROFILOVÝ OBRÁZOK]
     <input type="file" (change)="onFileSelected($event)" hidden />
   </label>
-</div>
-
-else
-<div>
-  <p>NIE SI PRIHLÁSENÝ</p>
 </div>

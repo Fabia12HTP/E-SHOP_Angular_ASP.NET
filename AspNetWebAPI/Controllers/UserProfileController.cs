@@ -1,22 +1,18 @@
 ﻿using System.Security.Claims;
 using AspNetCoreAPI.Data;
-using AspNetCoreAPI.DTOs;
 using AspNetCoreAPI.Models;
-using AspNetCoreAPI.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAPI.Controllers
 {
-
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [Route("[controller]")]
-    
     public class UserProfileController : ControllerBase
     {
-        protected readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _environment;
 
         public UserProfileController(ApplicationDbContext context, IWebHostEnvironment environment)
@@ -25,18 +21,22 @@ namespace AspNetCoreAPI.Controllers
             _environment = environment;
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> GetUserProfileById(string id)
+        protected async Task<User?> GetCurrentUserAsync()
         {
-            var username = User.FindFirstValue(ClaimTypes.Name);
+            var userName = User?.FindFirstValue(ClaimTypes.Name);
+            if (string.IsNullOrEmpty(userName))
+                return null;
 
-            if (string.IsNullOrEmpty(username))
-                return BadRequest($"You are not LOGGED IN! {username}");
+            return await _context.Users.SingleOrDefaultAsync(u => u.Email == userName);
+        }
 
-            var user = await _context.Users.FindAsync(username);
+        [HttpGet("")]
+        public async Task<IActionResult> GetUserProfile()
+        {
+            var user = await GetCurrentUserAsync();
 
             if (user == null)
-                return NotFound("User not found");
+                return Unauthorized("User not found or not LOGGED IN!");
 
             return Ok(new
             {
@@ -50,20 +50,17 @@ namespace AspNetCoreAPI.Controllers
             });
         }
 
-        [Authorize]
         [HttpPost("upload-profile-picture")]
         [RequestSizeLimit(5 * 1024 * 1024)]
         public async Task<IActionResult> UploadProfilePicture(IFormFile file)
         {
-            var username = User.FindFirstValue(ClaimTypes.Name);
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
 
-            if (string.IsNullOrEmpty(username))
-                return BadRequest($"You are not LOGGED IN! {username}");
+            var user = await GetCurrentUserAsync();
 
-            var user = await _context.Users.FindAsync(username);
-
-            if (user == null || file == null || file.Length == 0)
-                return BadRequest("Invalid request!");
+            if (user == null)
+                return Unauthorized("User not found or not LOGGED IN!");
 
             var uploadsRoot = Path.Combine(_environment.WebRootPath, "uploads", "users");
             Directory.CreateDirectory(uploadsRoot);
@@ -92,4 +89,3 @@ namespace AspNetCoreAPI.Controllers
         }
     }
 }
-
